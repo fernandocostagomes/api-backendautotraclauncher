@@ -16,7 +16,7 @@ import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 
 @RestController
-@RequestMapping( value = "/api" )
+@RequestMapping( value = "/api/v1" )
 public class DeviceResource
 {
    @Autowired

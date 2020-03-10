@@ -18,7 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping( value = "/api" )
+@RequestMapping( value = "/api/v1" )
 @Api( value = "API REST OBJETO APP_DEVICE" )
 @CrossOrigin( origins = "*" )
 public class AppDeviceResource
