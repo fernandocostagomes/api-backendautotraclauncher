@@ -3,37 +3,39 @@ package br.com.autotrac.jatlauncher.apirest.models;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
 @Embeddable
-@Table( name = "PARAM" )
+@Table( name = "param" )
 public class PARAM implements Serializable
 {
    private static final long serialVersionUID = 1L;
 
    @Id
-   private long mParamId;
+   private long param_num_id;
 
-   private long mParamName;
+   private long param_num_cod;
 
-   public long getmParamId()
+   public long getParam_num_id()
    {
-      return mParamId;
+      return param_num_id;
    }
 
-   public void setmParamId( long mParamId )
+   public void setParam_num_id( long param_num_id )
    {
-      this.mParamId = mParamId;
+      this.param_num_id = param_num_id;
    }
 
-   public long getmParamName()
+   public long getParam_num_cod()
    {
-      return mParamName;
+      return param_num_cod;
    }
 
-   public void setmParamName( long mParamName )
+   public void setParam_num_cod( long param_num_cod )
    {
-      this.mParamName = mParamName;
+      this.param_num_cod = param_num_cod;
    }
 }

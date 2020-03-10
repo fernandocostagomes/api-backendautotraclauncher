@@ -35,28 +35,28 @@ public class AppResource
       return appRepository.findAll();
    }
 
-   @GetMapping( "/apponly/{id}" )
+   @GetMapping( "/app_only/{id}" )
    @ApiOperation( value = "Retorna um único App de acordo com o Id informado." )
    public APP listAppOnly( @PathVariable( value = "id" ) long id )
    {
       return appRepository.findById( id );
    }
 
-   @PostMapping( "/appinsert" )
+   @PostMapping( "/app_insert" )
    @ApiOperation( value = "Grava um App." )
    public APP insertApp( @RequestBody APP app )
    {
       return appRepository.save( app );
    }
 
-   @DeleteMapping( "/appdelete" )
+   @DeleteMapping( "/app_delete" )
    @ApiOperation( value = "Deleta um App de acordo com o objeto informado." )
    public void deleteApp( @RequestBody APP app )
    {
       appRepository.delete( app );
    }
 
-   @PutMapping( "/appupdate" )
+   @PutMapping( "/app_update" )
    @ApiOperation( value = "Faz uma alteração em um App de acordo com o objeto informado." )
    public APP updateApp( @RequestBody APP app )
    {

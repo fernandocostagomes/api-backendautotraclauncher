@@ -22,31 +22,31 @@ public class DeviceResource
    @Autowired
    DeviceRepository deviceRepository;
 
-   @GetMapping( "/deviceall" )
+   @GetMapping( "/device_all" )
    public List<DEVICE> listDevice()
    {
       return deviceRepository.findAll();
    }
 
-   @GetMapping( "/deviceonly/{id}" )
+   @GetMapping( "/device_only/{id}" )
    public DEVICE listDeviceOnly( @PathVariable( value = "id" ) long id )
    {
       return deviceRepository.findById( id );
    }
 
-   @PostMapping( "/deviceinsert" )
+   @PostMapping( "/device_insert" )
    public DEVICE insertDevice( @RequestBody DEVICE device )
    {
       return deviceRepository.save( device );
    }
 
-   @DeleteMapping( "/devicedelete" )
+   @DeleteMapping( "/device_delete" )
    public void deleteDevice( @RequestBody DEVICE device )
    {
       deviceRepository.delete( device );
    }
 
-   @PutMapping( "/deviceupdate" )
+   @PutMapping( "/device_update" )
    public DEVICE updateDevice( @RequestBody DEVICE device )
    {
       return deviceRepository.save( device );
