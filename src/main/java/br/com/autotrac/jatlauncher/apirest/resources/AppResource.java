@@ -28,7 +28,7 @@ public class AppResource
    @Autowired
    AppRepository appRepository;
 
-   @GetMapping( "/appall" )
+   @GetMapping( "/app_all" )
    @ApiOperation( value = "Retorna a lista de todos os Apps." )
    public List<APP> listApp()
    {
