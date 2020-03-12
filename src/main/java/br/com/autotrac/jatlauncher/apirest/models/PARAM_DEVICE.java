@@ -2,9 +2,13 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,51 +19,57 @@ public class PARAM_DEVICE implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   private long param_device_num_id;
+   @Column
+   @PrimaryKeyJoinColumn
+   @GeneratedValue( strategy = GenerationType.AUTO )
+   private long paramDeviceNumId;
 
-   private String device_txt_id;
+   @Column
+   private String paramDeviceValue;
 
-   private String param_device_value;
+   @Column
+   private String paramDeviceOldValue;
 
-   private String param_device_old_value;
+   @Column
+   private long deviceNumId;
 
-   public long getParam_device_num_id()
+   public long getParamDeviceNumId()
    {
-      return param_device_num_id;
+      return paramDeviceNumId;
    }
 
-   public void setParam_device_num_id( long param_device_num_id )
+   public void setParamDeviceNumId( long paramDeviceNumId )
    {
-      this.param_device_num_id = param_device_num_id;
+      this.paramDeviceNumId = paramDeviceNumId;
    }
 
-   public String getDevice_txt_id()
+   public String getParamDeviceValue()
    {
-      return device_txt_id;
+      return paramDeviceValue;
    }
 
-   public void setDevice_txt_id( String device_txt_id )
+   public void setParamDeviceValue( String paramDeviceValue )
    {
-      this.device_txt_id = device_txt_id;
+      this.paramDeviceValue = paramDeviceValue;
    }
 
-   public String getParam_device_value()
+   public String getParamDeviceOldValue()
    {
-      return param_device_value;
+      return paramDeviceOldValue;
    }
 
-   public void setParam_device_value( String param_device_value )
+   public void setParamDeviceOldValue( String paramDeviceOldValue )
    {
-      this.param_device_value = param_device_value;
+      this.paramDeviceOldValue = paramDeviceOldValue;
    }
 
-   public String getParam_device_old_value()
+   public long getDeviceNumId()
    {
-      return param_device_old_value;
+      return deviceNumId;
    }
 
-   public void setParam_device_old_value( String param_device_old_value )
+   public void setDeviceNumId( long deviceNumId )
    {
-      this.param_device_old_value = param_device_old_value;
+      this.deviceNumId = deviceNumId;
    }
 }

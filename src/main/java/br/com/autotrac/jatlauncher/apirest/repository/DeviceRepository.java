@@ -7,4 +7,6 @@ import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 public interface DeviceRepository extends JpaRepository<DEVICE, Long>
 {
    DEVICE findById( long id );
+
+   DEVICE findByDeviceTxtSerial( String serial );
 }

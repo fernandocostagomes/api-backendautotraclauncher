@@ -2,9 +2,13 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,27 +19,44 @@ public class PARAM implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   private long param_num_id;
+   @Column
+   @PrimaryKeyJoinColumn
+   @GeneratedValue( strategy = GenerationType.AUTO )
+   private long paramNumId;
 
-   private long param_num_cod;
+   @Column
+   private long paramNumCod;
 
-   public long getParam_num_id()
+   @Column
+   private long paramNumType;
+
+   public long getParamNumId()
    {
-      return param_num_id;
+      return paramNumId;
    }
 
-   public void setParam_num_id( long param_num_id )
+   public void setParamNumId( long paramNumId )
    {
-      this.param_num_id = param_num_id;
+      this.paramNumId = paramNumId;
    }
 
-   public long getParam_num_cod()
+   public long getParamNumCod()
    {
-      return param_num_cod;
+      return paramNumCod;
    }
 
-   public void setParam_num_cod( long param_num_cod )
+   public void setParamNumCod( long paramNumCod )
    {
-      this.param_num_cod = param_num_cod;
+      this.paramNumCod = paramNumCod;
+   }
+
+   public long getParamNumType()
+   {
+      return paramNumType;
+   }
+
+   public void setParamNumType( long paramNumType )
+   {
+      this.paramNumType = paramNumType;
    }
 }

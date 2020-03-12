@@ -2,53 +2,74 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table( name = "app" )
 public class APP implements Serializable
 {
    private static final long serialVersionUID = 1L;
 
-   @Id
-   @GeneratedValue( strategy = GenerationType.AUTO )
-   private long app_num_id;
+   private String appTxtPackage;
+   private String appTxtLabel;
+   private long appNumStatus;
+   private long appTxtPermission;
+   private String appTxtPassword;
+   private String deviceTxtSerial;
 
-   private String app_txt_label;
-
-   private String app_txt_package;
-
-   public long getApp_num_id()
+   public String getAppTxtPackage()
    {
-      return app_num_id;
+      return appTxtPackage;
    }
 
-   public void setApp_num_id( long app_num_id )
+   public void setAppTxtPackage( String appTxtPackage )
    {
-      this.app_num_id = app_num_id;
+      this.appTxtPackage = appTxtPackage;
    }
 
-   public String getApp_txt_label()
+   public String getAppTxtLabel()
    {
-      return app_txt_label;
+      return appTxtLabel;
    }
 
-   public void setApp_txt_label( String app_txt_label )
+   public void setAppTxtLabel( String appTxtLabel )
    {
-      this.app_txt_label = app_txt_label;
+      this.appTxtLabel = appTxtLabel;
    }
 
-   public String getApp_txt_package()
+   public long getAppNumStatus()
    {
-      return app_txt_package;
+      return appNumStatus;
    }
 
-   public void setApp_txt_package( String app_txt_package )
+   public void setAppNumStatus( long appNumStatus )
    {
-      this.app_txt_package = app_txt_package;
+      this.appNumStatus = appNumStatus;
+   }
+
+   public long getAppTxtPermission()
+   {
+      return appTxtPermission;
+   }
+
+   public void setAppTxtPermission( long appTxtPermission )
+   {
+      this.appTxtPermission = appTxtPermission;
+   }
+
+   public String getAppTxtPassword()
+   {
+      return appTxtPassword;
+   }
+
+   public void setAppTxtPassword( String appTxtPassword )
+   {
+      this.appTxtPassword = appTxtPassword;
+   }
+
+   public String getDeviceTxtSerial()
+   {
+      return deviceTxtSerial;
+   }
+
+   public void setDeviceTxtSerial( String deviceTxtSerial )
+   {
+      this.deviceTxtSerial = deviceTxtSerial;
    }
 }

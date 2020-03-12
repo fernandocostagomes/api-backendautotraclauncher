@@ -34,6 +34,12 @@ public class DeviceResource
       return deviceRepository.findById( id );
    }
 
+   @GetMapping( "/device_only/{serial}" )
+   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) String serial )
+   {
+      return deviceRepository.findByDeviceTxtSerial( serial );
+   }
+
    @PostMapping( "/device_insert" )
    public DEVICE insertDevice( @RequestBody DEVICE device )
    {

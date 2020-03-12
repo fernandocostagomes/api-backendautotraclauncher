@@ -2,8 +2,12 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -13,27 +17,44 @@ public class DEVICE implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   private String device_txt_id;
+   @Column
+   @PrimaryKeyJoinColumn
+   @GeneratedValue( strategy = GenerationType.AUTO )
+   private long deviceNumId;
 
-   private String device_txt_client;
+   @Column
+   private String deviceTxtSerial;
 
-   public String getDevice_txt_id()
+   @Column
+   private String deviceTxtClient;
+
+   public long getDeviceNumId()
    {
-      return device_txt_id;
+      return deviceNumId;
    }
 
-   public void setDevice_txt_id( String device_txt_id )
+   public void setDeviceNumId( long deviceNumId )
    {
-      this.device_txt_id = device_txt_id;
+      this.deviceNumId = deviceNumId;
    }
 
-   public String getDevice_txt_client()
+   public String getDeviceTxtSerial()
    {
-      return device_txt_client;
+      return deviceTxtSerial;
    }
 
-   public void setDevice_txt_client( String device_txt_client )
+   public void setDeviceTxtSerial( String deviceTxtSerial )
    {
-      this.device_txt_client = device_txt_client;
+      this.deviceTxtSerial = deviceTxtSerial;
+   }
+
+   public String getDeviceTxtClient()
+   {
+      return deviceTxtClient;
+   }
+
+   public void setDeviceTxtClient( String deviceTxtClient )
+   {
+      this.deviceTxtClient = deviceTxtClient;
    }
 }

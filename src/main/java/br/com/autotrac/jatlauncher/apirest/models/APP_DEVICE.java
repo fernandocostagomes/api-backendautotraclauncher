@@ -2,9 +2,13 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,63 +19,107 @@ public class APP_DEVICE implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   private long app_num_id;
+   @Column
+   @PrimaryKeyJoinColumn
+   @GeneratedValue( strategy = GenerationType.AUTO )
+   private long appDeviceNumId;
 
-   private String device_txt_id;
+   @Column
+   private long appNumId;
 
-   private String app_device_txt_status;
+   @Column
+   private long deviceNumId;
 
-   private String app_device_txt_permission;
+   private String appDeviceTxtPackage;
 
-   private String app_device_txt_password;
+   private String appDeviceTxtLabel;
 
-   public long getApp_num_id()
+   @Column
+   private long appDeviceNumStatus;
+
+   @Column
+   private long appDeviceNumPermission;
+
+   @Column
+   private String appDeviceTxtPassword;
+
+   public long getAppDeviceNumId()
    {
-      return app_num_id;
+      return appDeviceNumId;
    }
 
-   public void setApp_num_id( long app_num_id )
+   public void setAppDeviceNumId( long appDeviceNumId )
    {
-      this.app_num_id = app_num_id;
+      this.appDeviceNumId = appDeviceNumId;
    }
 
-   public String getDevice_num_id()
+   public long getAppNumId()
    {
-      return device_txt_id;
+      return appNumId;
    }
 
-   public void setDevice_txt_id( String device_txt_id )
+   public void setAppNumId( long appNumId )
    {
-      this.device_txt_id = device_txt_id;
+      this.appNumId = appNumId;
    }
 
-   public String getApp_device_txt_status()
+   public String getAppDeviceTxtPackage()
    {
-      return app_device_txt_status;
+      return appDeviceTxtPackage;
    }
 
-   public void setApp_device_txt_status( String app_device_txt_status )
+   public void setAppDeviceTxtPackage( String appDeviceTxtPackage )
    {
-      this.app_device_txt_status = app_device_txt_status;
+      this.appDeviceTxtPackage = appDeviceTxtPackage;
    }
 
-   public String getApp_device_txt_permission()
+   public String getAppDeviceTxtLabel()
    {
-      return app_device_txt_permission;
+      return appDeviceTxtLabel;
    }
 
-   public void setApp_device_txt_permission( String app_device_txt_permission )
+   public void setAppDeviceTxtLabel( String appDeviceTxtLabel )
    {
-      this.app_device_txt_permission = app_device_txt_permission;
+      this.appDeviceTxtLabel = appDeviceTxtLabel;
    }
 
-   public String getApp_device_txt_password()
+   public long getDeviceNumId()
    {
-      return app_device_txt_password;
+      return deviceNumId;
    }
 
-   public void setApp_device_txt_password( String app_device_txt_password )
+   public void setDeviceNumId( long deviceNumId )
    {
-      this.app_device_txt_password = app_device_txt_password;
+      this.deviceNumId = deviceNumId;
+   }
+
+   public long getAppDeviceNumStatus()
+   {
+      return appDeviceNumStatus;
+   }
+
+   public void setAppDeviceNumStatus( long appDeviceNumStatus )
+   {
+      this.appDeviceNumStatus = appDeviceNumStatus;
+   }
+
+   public long getAppDeviceNumPermission()
+   {
+      return appDeviceNumPermission;
+   }
+
+   public void setAppDeviceNumPermission( long appDeviceNumPermission )
+   {
+      this.appDeviceNumPermission = appDeviceNumPermission;
+   }
+
+   public String getAppDeviceTxtPassword()
+   {
+      return appDeviceTxtPassword;
+   }
+
+   public void setAppDeviceTxtPassword( String appDeviceTxtPassword )
+   {
+      this.appDeviceTxtPassword = appDeviceTxtPassword;
    }
 }

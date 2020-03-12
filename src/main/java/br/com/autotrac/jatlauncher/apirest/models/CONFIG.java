@@ -2,9 +2,13 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -15,40 +19,44 @@ public class CONFIG implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   private long config_num_id;
+   @Column
+   @PrimaryKeyJoinColumn
+   @GeneratedValue( strategy = GenerationType.AUTO )
+   private long configNumId;
 
-   private long config_num_update;
+   @Column
+   private long configNumUpdate;
 
-   private String device_txt_id;
+   @Column
+   private long deviceNumId;
 
-   public long getConfig_num_id()
+   public long getConfigNumId()
    {
-      return config_num_id;
+      return configNumId;
    }
 
-   public void setConfig_num_id( long config_num_id )
+   public void setConfigNumId( long configNumId )
    {
-      this.config_num_id = config_num_id;
+      this.configNumId = configNumId;
    }
 
-   public long getConfig_num_update()
+   public long getConfigNumUpdate()
    {
-      return config_num_update;
+      return configNumUpdate;
    }
 
-   public void setConfig_num_update( long config_num_update )
+   public void setConfigNumUpdate( long configNumUpdate )
    {
-      this.config_num_update = config_num_update;
+      this.configNumUpdate = configNumUpdate;
    }
 
-   public String getDevice_txt_id()
+   public long getDeviceNumId()
    {
-      return device_txt_id;
+      return deviceNumId;
    }
 
-   public void setDevice_txt_id( String device_txt_id )
+   public void setDeviceNumId( long deviceNumId )
    {
-      this.device_txt_id = device_txt_id;
+      this.deviceNumId = deviceNumId;
    }
-
 }

@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.autotrac.jatlauncher.apirest.models.APP;
+import br.com.autotrac.jatlauncher.apirest.models.APP_BACKEND;
 import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
+import br.com.autotrac.jatlauncher.apirest.repository.AppBackendRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.AppDeviceRepository;
+import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,17 +32,52 @@ public class AppDeviceResource
    @Autowired
    AppDeviceRepository appDeviceRepository;
 
+   @Autowired
+   AppBackendRepository appBackendRepository;
+
+   @Autowired
+   DeviceRepository deviceRepository;
+
    @GetMapping( "/app_device_all" )
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para todos os dispositivos." )
-   public List<APP_DEVICE> listAppDevice()
+   public List<APP_DEVICE> listAppDeviceAll()
    {
       return appDeviceRepository.findAll();
    }
 
    @PostMapping( "/app_device_insert" )
    @ApiOperation( value = "Grava um App para um dispositivo." )
-   public APP_DEVICE insertAppDevice( @RequestBody APP_DEVICE app_device )
+   public APP_DEVICE insertAppDevice( @RequestBody APP app )
    {
+      DEVICE device = new DEVICE();
+      device = deviceRepository.findByDeviceTxtSerial( app.getDeviceTxtSerial() );
+
+      APP_BACKEND appbackend = new APP_BACKEND();
+      appbackend = appBackendRepository.findByAppTxtPackage( app.getAppTxtPackage() );
+      // Verifica se ja tem o app cadastrado na tabela de apps generico.
+      // Não existe.
+      // if ( !app.getAppTxtPackage().equals( appbackend.getAppTxtPackage() ) || appbackend == null )
+      if ( appbackend == null )
+      {
+         // Insere o App na tabela geral de Apps e resgata o id gerado para o mesmo.
+         appbackend = new APP_BACKEND();
+         appbackend.setAppNumId( 0 );
+         appbackend.setAppTxtPackage( app.getAppTxtPackage() );
+         appbackend.setAppTxtLabel( app.getAppTxtLabel() );
+
+         appbackend = appBackendRepository.save( appbackend );
+      }
+      // Existe
+      // Insere o App na tabela de apps por dispositivo.
+      APP_DEVICE app_device = new APP_DEVICE();
+      app_device.setAppNumId( appbackend.getAppNumId() );
+      app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
+      app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
+      app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
+      app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
+      app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
+      app_device.setDeviceNumId( device.getDeviceNumId() );
+
       return appDeviceRepository.save( app_device );
    }
 
