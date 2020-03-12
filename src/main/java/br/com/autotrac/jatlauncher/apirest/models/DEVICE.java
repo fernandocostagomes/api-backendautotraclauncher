@@ -18,15 +18,18 @@ public class DEVICE implements Serializable
 
    @Id
    @Column
-   @PrimaryKeyJoinColumn
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long deviceNumId;
 
    @Column
+   @PrimaryKeyJoinColumn
    private String deviceTxtSerial;
 
    @Column
    private String deviceTxtClient;
+
+   @Column
+   private long deviceNumStatus;
 
    public long getDeviceNumId()
    {
@@ -56,5 +59,15 @@ public class DEVICE implements Serializable
    public void setDeviceTxtClient( String deviceTxtClient )
    {
       this.deviceTxtClient = deviceTxtClient;
+   }
+
+   public long getDeviceNumStatus()
+   {
+      return deviceNumStatus;
+   }
+
+   public void setDeviceNumStatus( long deviceNumStatus )
+   {
+      this.deviceNumStatus = deviceNumStatus;
    }
 }
