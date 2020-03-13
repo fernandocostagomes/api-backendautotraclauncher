@@ -52,6 +52,12 @@ public class DeviceResource
       deviceRepository.delete( device );
    }
 
+   @DeleteMapping( "/device_delete_only/{id}" )
+   public void deleteDeviceOnlyId( @PathVariable( value = "id" ) long id )
+   {
+      deviceRepository.deleteById( id );
+   }
+
    @PutMapping( "/device_update" )
    public DEVICE updateDevice( @RequestBody DEVICE device )
    {

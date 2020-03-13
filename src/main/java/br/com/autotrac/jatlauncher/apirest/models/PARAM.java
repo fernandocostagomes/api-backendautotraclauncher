@@ -24,10 +24,10 @@ public class PARAM implements Serializable
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long paramNumId;
 
-   @Column
+   @Column( nullable = false )
    private long paramNumCod;
 
-   @Column
+   @Column( nullable = false )
    private long paramNumType;
 
    public long getParamNumId()

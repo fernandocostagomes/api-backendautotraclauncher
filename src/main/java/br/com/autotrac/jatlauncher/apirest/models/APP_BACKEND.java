@@ -22,10 +22,10 @@ public class APP_BACKEND implements Serializable
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long appNumId;
 
-   @Column
+   @Column( nullable = false )
    private String appTxtLabel;
 
-   @Column
+   @Column( nullable = false )
    private String appTxtPackage;
 
    public long getAppNumId()

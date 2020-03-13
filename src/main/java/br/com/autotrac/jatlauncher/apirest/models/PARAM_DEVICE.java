@@ -24,13 +24,13 @@ public class PARAM_DEVICE implements Serializable
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long paramDeviceNumId;
 
-   @Column
+   @Column( nullable = false )
    private String paramDeviceValue;
 
    @Column
    private String paramDeviceOldValue;
 
-   @Column
+   @Column( nullable = false )
    private long deviceNumId;
 
    public long getParamDeviceNumId()

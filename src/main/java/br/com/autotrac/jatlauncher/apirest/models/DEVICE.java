@@ -17,19 +17,22 @@ public class DEVICE implements Serializable
    private static final long serialVersionUID = 1L;
 
    @Id
-   @Column
+   @Column( nullable = false )
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long deviceNumId;
 
-   @Column
+   @Column( nullable = false )
    @PrimaryKeyJoinColumn
    private String deviceTxtSerial;
 
-   @Column
+   @Column( nullable = false )
    private String deviceTxtClient;
 
-   @Column
+   @Column( nullable = false )
    private long deviceNumStatus;
+
+   @Column( nullable = false )
+   private String deviceTxtActivationKey;
 
    public long getDeviceNumId()
    {
@@ -69,5 +72,15 @@ public class DEVICE implements Serializable
    public void setDeviceNumStatus( long deviceNumStatus )
    {
       this.deviceNumStatus = deviceNumStatus;
+   }
+
+   public String getDeviceTxtActivationKey()
+   {
+      return deviceTxtActivationKey;
+   }
+
+   public void setDeviceTxtActivationKey( String deviceTxtActivationKey )
+   {
+      this.deviceTxtActivationKey = deviceTxtActivationKey;
    }
 }

@@ -24,10 +24,10 @@ public class CONFIG implements Serializable
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long configNumId;
 
-   @Column
+   @Column( nullable = false )
    private long configNumUpdate;
 
-   @Column
+   @Column( nullable = false )
    private long deviceNumId;
 
    public long getConfigNumId()

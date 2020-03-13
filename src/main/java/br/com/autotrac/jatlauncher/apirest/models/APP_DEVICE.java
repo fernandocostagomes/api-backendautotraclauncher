@@ -24,23 +24,23 @@ public class APP_DEVICE implements Serializable
    @GeneratedValue( strategy = GenerationType.AUTO )
    private long appDeviceNumId;
 
-   @Column
+   @Column( nullable = false )
    private long appNumId;
 
-   @Column
+   @Column( nullable = false )
    private long deviceNumId;
 
    private String appDeviceTxtPackage;
 
    private String appDeviceTxtLabel;
 
-   @Column
+   @Column( nullable = false )
    private long appDeviceNumStatus;
 
-   @Column
+   @Column( nullable = false )
    private long appDeviceNumPermission;
 
-   @Column
+   @Column( nullable = false )
    private String appDeviceTxtPassword;
 
    public long getAppDeviceNumId()
