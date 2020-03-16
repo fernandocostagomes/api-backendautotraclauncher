@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.PARAM;
+import br.com.autotrac.jatlauncher.apirest.models.Param;
 import br.com.autotrac.jatlauncher.apirest.repository.ParamRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,37 +28,37 @@ public class ParamResource
    @Autowired
    ParamRepository paramRepository;
 
-   @GetMapping( "/param_all" )
+   @GetMapping( "/param" )
    @ApiOperation( value = "Retorna a lista de todos os Parâmetros." )
-   public List<PARAM> listParam()
+   public List<Param> listParam()
    {
       return paramRepository.findAll();
    }
 
-   @GetMapping( "/param_only/{id}" )
+   @GetMapping( "/param/{id}" )
    @ApiOperation( value = "Retorna um único Parâmetro de acordo com o Id informado." )
-   public PARAM listParamOnly( @PathVariable( value = "id" ) long id )
+   public Param listParamOnly( @PathVariable( value = "id" ) long id )
    {
       return paramRepository.findById( id );
    }
 
-   @PostMapping( "/param_insert" )
+   @PostMapping( "/param" )
    @ApiOperation( value = "Grava um Parâmetro." )
-   public PARAM insertParam( @RequestBody PARAM param )
+   public Param insertParam( @RequestBody Param param )
    {
       return paramRepository.save( param );
    }
 
-   @DeleteMapping( "/param_delete" )
+   @DeleteMapping( "/param" )
    @ApiOperation( value = "Deleta um Parâmetro de acordo com o objeto informado." )
-   public void deleteParam( @RequestBody PARAM param )
+   public void deleteParam( @RequestBody Param param )
    {
       paramRepository.delete( param );
    }
 
-   @PutMapping( "/param_update" )
+   @PutMapping( "/param" )
    @ApiOperation( value = "Faz uma alteração em um Parâmetro de acordo com o objeto informado." )
-   public PARAM updateParam( @RequestBody PARAM param )
+   public Param updateParam( @RequestBody Param param )
    {
       return paramRepository.save( param );
    }

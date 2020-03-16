@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.Paramdevice;
 import br.com.autotrac.jatlauncher.apirest.repository.ParamDeviceRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,37 +28,37 @@ public class ParamDeviceResource
    @Autowired
    ParamDeviceRepository paramDeviceRepository;
 
-   @GetMapping( "/param_device_all" )
+   @GetMapping( "/paramdevice" )
    @ApiOperation( value = "Retorna a lista de todos os Parametros de todos os Devices." )
-   public List<PARAM_DEVICE> listParamDevice()
+   public List<Paramdevice> listParamDevice()
    {
       return paramDeviceRepository.findAll();
    }
 
-   @GetMapping( "/param_device_only/{id}" )
+   @GetMapping( "/paramdevice/{id}" )
    @ApiOperation( value = "Retorna um único Parâmetro de um Device de acordo com o Id informado." )
-   public PARAM_DEVICE listParamDeviceOnly( @PathVariable( value = "id" ) long id )
+   public Paramdevice listParamDeviceOnly( @PathVariable( value = "id" ) long id )
    {
       return paramDeviceRepository.findById( id );
    }
 
-   @PostMapping( "/param_device_insert" )
+   @PostMapping( "/paramdevice" )
    @ApiOperation( value = "Grava um Parâmetro de um Device." )
-   public PARAM_DEVICE insertParamDevice( @RequestBody PARAM_DEVICE param_device )
+   public Paramdevice insertParamDevice( @RequestBody Paramdevice param_device )
    {
       return paramDeviceRepository.save( param_device );
    }
 
-   @DeleteMapping( "/param_device_delete" )
+   @DeleteMapping( "/paramdevice" )
    @ApiOperation( value = "Deleta um Parâmetro de um Device de acordo com o objeto informado." )
-   public void deleteParamDevice( @RequestBody PARAM_DEVICE param_device )
+   public void deleteParamDevice( @RequestBody Paramdevice param_device )
    {
       paramDeviceRepository.delete( param_device );
    }
 
-   @PutMapping( "param_device_update" )
+   @PutMapping( "/paramdevice" )
    @ApiOperation( value = "Faz uma alteração em um Parâmetro de um Device de acordo com o objeto informado." )
-   public PARAM_DEVICE updateParamDevice( @RequestBody PARAM_DEVICE param_device )
+   public Paramdevice updateParamDevice( @RequestBody Paramdevice param_device )
    {
       return paramDeviceRepository.save( param_device );
    }

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table( name = "device" )
-public class DEVICE implements Serializable
+public class Device implements Serializable
 {
    private static final long serialVersionUID = 1L;
 

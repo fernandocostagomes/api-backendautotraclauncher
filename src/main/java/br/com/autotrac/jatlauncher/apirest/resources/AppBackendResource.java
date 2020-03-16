@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.APP_BACKEND;
+import br.com.autotrac.jatlauncher.apirest.models.Appbackend;
 import br.com.autotrac.jatlauncher.apirest.repository.AppBackendRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,58 +28,51 @@ public class AppBackendResource
    @Autowired
    AppBackendRepository appBackendRepository;
 
-   @GetMapping( "/app_backend_all" )
+   @GetMapping( "/appserver" )
    @ApiOperation( value = "Retorna a lista de todos os Apps." )
-   public List<APP_BACKEND> listApp()
+   public List<Appbackend> listApp()
    {
       return appBackendRepository.findAll();
    }
 
-   @GetMapping( "/app_backend_only/{id}" )
+   @GetMapping( "/appserver/{id}" )
    @ApiOperation( value = "Retorna um único App de acordo com o Id informado." )
-   public APP_BACKEND listAppOnlyId( @PathVariable( value = "id" ) long id )
+   public Appbackend listAppOnlyId( @PathVariable( value = "id" ) long id )
    {
       return appBackendRepository.findByAppNumId( id );
    }
 
-   @GetMapping( "/app_backend_only/{pacote}" )
+   @GetMapping( "/appserver_pkg/{pacote}" )
    @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
-   public APP_BACKEND listAppOnlyPackage( String pacote )
+   public Appbackend listAppOnlyPackage( String pacote )
    {
       return appBackendRepository.findByAppTxtPackage( pacote );
    }
 
-   @GetMapping( "/app_backend_only/{name}" )
+   @GetMapping( "/appserver_name/{name}" )
    @ApiOperation( value = "Retorna um único App de acordo com o label informado." )
-   public APP_BACKEND listAppOnlyLabel( String label )
+   public Appbackend listAppOnlyLabel( String label )
    {
       return appBackendRepository.findByAppTxtLabel( label );
    }
 
-   @PostMapping( "/app_backend_insert" )
+   @PostMapping( "/appserver" )
    @ApiOperation( value = "Grava um App." )
-   public APP_BACKEND insertApp( @RequestBody APP_BACKEND app_backend )
+   public Appbackend insertApp( @RequestBody Appbackend app_backend )
    {
       return appBackendRepository.save( app_backend );
    }
 
-   @DeleteMapping( "/app_backend_delete" )
+   @DeleteMapping( "/appserver" )
    @ApiOperation( value = "Deleta um App de acordo com o objeto informado." )
-   public void deleteApp( @RequestBody APP_BACKEND app )
+   public void deleteApp( @RequestBody Appbackend app )
    {
       appBackendRepository.delete( app );
    }
 
-   @DeleteMapping( "/app_backend_delete/{pacote}" )
-   @ApiOperation( value = "Deleta um App de acordo com o nome do pacote informado." )
-   public void deleteApp( @RequestBody String pacote )
-   {
-      appBackendRepository.deleteByAppTxtPackage( pacote );
-   }
-
-   @PutMapping( "/app_backend_update" )
+   @PutMapping( "/appserver" )
    @ApiOperation( value = "Faz uma alteração em um App de acordo com o objeto informado." )
-   public APP_BACKEND updateApp( @RequestBody APP_BACKEND app )
+   public Appbackend updateApp( @RequestBody Appbackend app )
    {
       return appBackendRepository.save( app );
    }

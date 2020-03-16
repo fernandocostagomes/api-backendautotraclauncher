@@ -2,9 +2,9 @@ package br.com.autotrac.jatlauncher.apirest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.Appdevice;
 
-public interface AppDeviceRepository extends JpaRepository<APP_DEVICE, Long>
+public interface AppDeviceRepository extends JpaRepository<Appdevice, Long>
 {
-   APP_DEVICE findById( long id );
+   Appdevice findById( long id );
 }

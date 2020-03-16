@@ -2,7 +2,7 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
-public class APP implements Serializable
+public class App implements Serializable
 {
    private static final long serialVersionUID = 1L;
 

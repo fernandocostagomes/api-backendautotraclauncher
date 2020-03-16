@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table( name = "app" )
-public class APP_BACKEND implements Serializable
+public class Appbackend implements Serializable
 {
    private static final long serialVersionUID = 1L;
 

@@ -2,15 +2,15 @@ package br.com.autotrac.jatlauncher.apirest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.autotrac.jatlauncher.apirest.models.APP_BACKEND;
+import br.com.autotrac.jatlauncher.apirest.models.Appbackend;
 
-public interface AppBackendRepository extends JpaRepository<APP_BACKEND, Long>
+public interface AppBackendRepository extends JpaRepository<Appbackend, Long>
 {
-   APP_BACKEND findByAppNumId( long p_id );
+   Appbackend findByAppNumId( long p_id );
 
-   APP_BACKEND findByAppTxtPackage( String p_package );
+   Appbackend findByAppTxtPackage( String p_package );
 
-   APP_BACKEND findByAppTxtLabel( String p_label );
+   Appbackend findByAppTxtLabel( String p_label );
 
-   APP_BACKEND deleteByAppTxtPackage( String p_package );
+   Appbackend deleteByAppTxtPackage( String p_package );
 }

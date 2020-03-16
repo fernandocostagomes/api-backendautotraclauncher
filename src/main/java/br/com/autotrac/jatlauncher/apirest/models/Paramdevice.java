@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Embeddable
 @Table( name = "param_device" )
-public class PARAM_DEVICE implements Serializable
+public class Paramdevice implements Serializable
 {
    private static final long serialVersionUID = 1L;
 

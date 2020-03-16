@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.Device;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 
 @RestController
@@ -22,44 +22,44 @@ public class DeviceResource
    @Autowired
    DeviceRepository deviceRepository;
 
-   @GetMapping( "/device_all" )
-   public List<DEVICE> listDevice()
+   @GetMapping( "/device" )
+   public List<Device> listDevice()
    {
       return deviceRepository.findAll();
    }
 
-   @GetMapping( "/device_only/{id}" )
-   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) long id )
+   @GetMapping( "/device/{id}" )
+   public Device listDeviceOnly( @PathVariable( value = "id" ) long id )
    {
       return deviceRepository.findById( id );
    }
 
-   @GetMapping( "/device_only/{serial}" )
-   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) String serial )
+   @GetMapping( "/device/{serial}" )
+   public Device listDeviceOnly( @PathVariable( value = "id" ) String serial )
    {
       return deviceRepository.findByDeviceTxtSerial( serial );
    }
 
-   @PostMapping( "/device_insert" )
-   public DEVICE insertDevice( @RequestBody DEVICE device )
+   @PostMapping( "/device" )
+   public Device insertDevice( @RequestBody Device device )
    {
       return deviceRepository.save( device );
    }
 
-   @DeleteMapping( "/device_delete" )
-   public void deleteDevice( @RequestBody DEVICE device )
+   @DeleteMapping( "/device" )
+   public void deleteDevice( @RequestBody Device device )
    {
       deviceRepository.delete( device );
    }
 
-   @DeleteMapping( "/device_delete_only/{id}" )
+   @DeleteMapping( "/device/{id}" )
    public void deleteDeviceOnlyId( @PathVariable( value = "id" ) long id )
    {
       deviceRepository.deleteById( id );
    }
 
-   @PutMapping( "/device_update" )
-   public DEVICE updateDevice( @RequestBody DEVICE device )
+   @PutMapping( "/device" )
+   public Device updateDevice( @RequestBody Device device )
    {
       return deviceRepository.save( device );
    }
