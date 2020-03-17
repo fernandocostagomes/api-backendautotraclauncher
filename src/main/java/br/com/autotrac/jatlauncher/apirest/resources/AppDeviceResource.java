@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.App;
+import br.com.autotrac.jatlauncher.apirest.models.APP;
 import br.com.autotrac.jatlauncher.apirest.models.Appbackend;
 import br.com.autotrac.jatlauncher.apirest.models.Appdevice;
 import br.com.autotrac.jatlauncher.apirest.models.Device;
@@ -47,7 +47,7 @@ public class AppDeviceResource
 
    @PostMapping( "/appdevice" )
    @ApiOperation( value = "Grava um App para um dispositivo." )
-   public Appdevice insertAppDevice( @RequestBody App app )
+   public Appdevice insertAppDevice( @RequestBody APP app )
    {
       Device device = new Device();
       device = deviceRepository.findByDeviceTxtSerial( app.getDeviceTxtSerial() );

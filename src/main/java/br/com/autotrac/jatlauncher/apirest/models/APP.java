@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author fernando.gomes
  *
  */
-public class App implements Serializable
+public class APP implements Serializable
 {
    private static final long serialVersionUID = 1L;
 
