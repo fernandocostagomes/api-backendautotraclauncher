@@ -2,9 +2,9 @@ package br.com.autotrac.jatlauncher.apirest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.autotrac.jatlauncher.apirest.models.Param;
+import br.com.autotrac.jatlauncher.apirest.models.PARAM;
 
-public interface ParamRepository extends JpaRepository<Param, Long>
+public interface ParamRepository extends JpaRepository<PARAM, Long>
 {
-   Param findById( long id );
+   PARAM findById( long id );
 }

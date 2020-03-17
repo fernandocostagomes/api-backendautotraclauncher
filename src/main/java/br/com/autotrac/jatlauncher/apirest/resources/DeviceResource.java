@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.Device;
+import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 
 @RestController
@@ -23,31 +23,31 @@ public class DeviceResource
    DeviceRepository deviceRepository;
 
    @GetMapping( "/device" )
-   public List<Device> listDevice()
+   public List<DEVICE> listDevice()
    {
       return deviceRepository.findAll();
    }
 
    @GetMapping( "/device/{id}" )
-   public Device listDeviceOnly( @PathVariable( value = "id" ) long id )
+   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) long id )
    {
       return deviceRepository.findById( id );
    }
 
    @GetMapping( "/device/{serial}" )
-   public Device listDeviceOnly( @PathVariable( value = "id" ) String serial )
+   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) String serial )
    {
       return deviceRepository.findByDeviceTxtSerial( serial );
    }
 
    @PostMapping( "/device" )
-   public Device insertDevice( @RequestBody Device device )
+   public DEVICE insertDevice( @RequestBody DEVICE device )
    {
       return deviceRepository.save( device );
    }
 
    @DeleteMapping( "/device" )
-   public void deleteDevice( @RequestBody Device device )
+   public void deleteDevice( @RequestBody DEVICE device )
    {
       deviceRepository.delete( device );
    }
@@ -59,7 +59,7 @@ public class DeviceResource
    }
 
    @PutMapping( "/device" )
-   public Device updateDevice( @RequestBody Device device )
+   public DEVICE updateDevice( @RequestBody DEVICE device )
    {
       return deviceRepository.save( device );
    }

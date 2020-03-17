@@ -2,11 +2,11 @@ package br.com.autotrac.jatlauncher.apirest.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.autotrac.jatlauncher.apirest.models.Config;
+import br.com.autotrac.jatlauncher.apirest.models.CONFIG;
 
-public interface ConfigRepository extends JpaRepository<Config, Long>
+public interface ConfigRepository extends JpaRepository<CONFIG, Long>
 {
 
-   Config findById( long id );
+   CONFIG findById( long id );
 
 }

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Entity
 @Embeddable
 @Table( name = "config" )
-public class Config implements Serializable
+public class CONFIG implements Serializable
 {
    private static final long serialVersionUID = 1L;
 

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.autotrac.jatlauncher.apirest.models.APP;
-import br.com.autotrac.jatlauncher.apirest.models.Appbackend;
-import br.com.autotrac.jatlauncher.apirest.models.Appdevice;
-import br.com.autotrac.jatlauncher.apirest.models.Device;
+import br.com.autotrac.jatlauncher.apirest.models.APP_BACKEND;
+import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.AppBackendRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.AppDeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
@@ -40,19 +40,19 @@ public class AppDeviceResource
 
    @GetMapping( "/appdevice" )
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para todos os dispositivos." )
-   public List<Appdevice> listAppDeviceAll()
+   public List<APP_DEVICE> listAppDeviceAll()
    {
       return appDeviceRepository.findAll();
    }
 
    @PostMapping( "/appdevice" )
    @ApiOperation( value = "Grava um App para um dispositivo." )
-   public Appdevice insertAppDevice( @RequestBody APP app )
+   public APP_DEVICE insertAppDevice( @RequestBody APP app )
    {
-      Device device = new Device();
+      DEVICE device = new DEVICE();
       device = deviceRepository.findByDeviceTxtSerial( app.getDeviceTxtSerial() );
 
-      Appbackend appbackend = new Appbackend();
+      APP_BACKEND appbackend = new APP_BACKEND();
       appbackend = appBackendRepository.findByAppTxtPackage( app.getAppTxtPackage() );
       // Verifica se ja tem o app cadastrado na tabela de apps generico.
       // Não existe.
@@ -60,7 +60,7 @@ public class AppDeviceResource
       if ( appbackend == null )
       {
          // Insere o App na tabela geral de Apps e resgata o id gerado para o mesmo.
-         appbackend = new Appbackend();
+         appbackend = new APP_BACKEND();
          appbackend.setAppNumId( 0 );
          appbackend.setAppTxtPackage( app.getAppTxtPackage() );
          appbackend.setAppTxtLabel( app.getAppTxtLabel() );
@@ -69,7 +69,7 @@ public class AppDeviceResource
       }
       // Existe
       // Insere o App na tabela de apps por dispositivo.
-      Appdevice app_device = new Appdevice();
+      APP_DEVICE app_device = new APP_DEVICE();
       app_device.setAppNumId( appbackend.getAppNumId() );
       app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
       app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
@@ -83,14 +83,14 @@ public class AppDeviceResource
 
    @DeleteMapping( "/appdevice" )
    @ApiOperation( value = "Deleta um App de um dispositivo de acordo com o objeto informado." )
-   public void deleteAppDevice( @RequestBody Appdevice app_device )
+   public void deleteAppDevice( @RequestBody APP_DEVICE app_device )
    {
       appDeviceRepository.delete( app_device );
    }
 
    @PutMapping( "/appdevice" )
    @ApiOperation( value = "Faz uma alteração em um App de um dispositivo de acordo com o objeto informado." )
-   public Appdevice updateAppDevice( @RequestBody Appdevice app_device )
+   public APP_DEVICE updateAppDevice( @RequestBody APP_DEVICE app_device )
    {
       return appDeviceRepository.save( app_device );
    }

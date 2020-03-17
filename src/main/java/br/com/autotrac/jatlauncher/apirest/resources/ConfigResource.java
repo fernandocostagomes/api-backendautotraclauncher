@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.Config;
+import br.com.autotrac.jatlauncher.apirest.models.CONFIG;
 import br.com.autotrac.jatlauncher.apirest.repository.ConfigRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,35 +30,35 @@ public class ConfigResource
 
    @GetMapping( "/config" )
    @ApiOperation( value = "Retorna a lista de todas as configurações." )
-   public List<Config> listConfig()
+   public List<CONFIG> listConfig()
    {
       return configRepository.findAll();
    }
 
    @GetMapping( "/config/{id}" )
    @ApiOperation( value = "Retorna uma único Configuração de acordo com o Id informado." )
-   public Config listConfigOnly( @PathVariable( value = "id" ) long id )
+   public CONFIG listConfigOnly( @PathVariable( value = "id" ) long id )
    {
       return configRepository.findById( id );
    }
 
    @PostMapping( "/config" )
    @ApiOperation( value = "Grava uma Configuração." )
-   public Config insertConfig( @RequestBody Config config )
+   public CONFIG insertConfig( @RequestBody CONFIG config )
    {
       return configRepository.save( config );
    }
 
    @DeleteMapping( "/config" )
    @ApiOperation( value = "Deleta uma Configuração de acordo com o objeto informado." )
-   public void deleteConfig( @RequestBody Config config )
+   public void deleteConfig( @RequestBody CONFIG config )
    {
       configRepository.delete( config );
    }
 
    @PutMapping( "/config" )
    @ApiOperation( value = "Faz uma alteração em uma Config de acordo com o objeto informado." )
-   public Config updateConfig( @RequestBody Config config )
+   public CONFIG updateConfig( @RequestBody CONFIG config )
    {
       return configRepository.save( config );
    }
