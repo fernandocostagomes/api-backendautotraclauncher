@@ -2,6 +2,12 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 import java.io.Serializable;
 
+/**
+ * Classe que representa o objeto App.
+ * 
+ * @author fernando.gomes
+ *
+ */
 public class App implements Serializable
 {
    private static final long serialVersionUID = 1L;
