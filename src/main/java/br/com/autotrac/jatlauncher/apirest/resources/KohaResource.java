@@ -17,7 +17,6 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping( value = "/api/v1" )
 @Api( value = "API REST OBJETO KOHA" )
-@CrossOrigin( origins = "*" )
 public class KohaResource
 {
 
@@ -35,6 +34,6 @@ public class KohaResource
    @ApiOperation( value = "Retorna um único registro de acordo com o Id informado." )
    public KOHA listKohaId( @PathVariable( value = "id" ) long id )
    {
-      return kohaRepository.findByAppNumId( id );
+      return kohaRepository.findById( id );
    }
 }

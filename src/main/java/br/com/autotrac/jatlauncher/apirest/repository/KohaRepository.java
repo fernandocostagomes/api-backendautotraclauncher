@@ -6,5 +6,5 @@ import br.com.autotrac.jatlauncher.apirest.models.KOHA;
 
 public interface KohaRepository extends JpaRepository<KOHA, Long>
 {
-   KOHA findByAppNumId( long p_id );
+   KOHA findById( long p_id );
 }
