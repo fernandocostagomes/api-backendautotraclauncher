@@ -1,5 +1,6 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,20 @@ public class AppBackendResource
    public List<APP_BACKEND> listApp()
    {
       return appBackendRepository.findAll();
+   }
+
+   @GetMapping( "/appserver_find/{string}" )
+   @ApiOperation( value = "Retorna a lista de todos os Apps como o termo selecionado." )
+   public List<APP_BACKEND> listAppString( @PathVariable( value = "string" ) String string )
+   {
+      List<APP_BACKEND> listApp = new ArrayList<APP_BACKEND>();
+      List<APP_BACKEND> listAppBackEnd = appBackendRepository.findAll();
+      for ( APP_BACKEND appBackEnd : listAppBackEnd )
+      {
+         if ( appBackEnd.getAppTxtLabel().contains( string ) )
+            listApp.add( appBackEnd );
+      }
+      return listApp;
    }
 
    @GetMapping( "/appserver/{id}" )
