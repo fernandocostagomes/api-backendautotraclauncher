@@ -34,7 +34,7 @@ public class KohaResource
       return kohaRepository.findAll();
    }
 
-   @GetMapping( "/koha_find/string" )
+   @GetMapping( "/koha_find/{string}" )
    @ApiOperation( value = "Retorna a lista de todos os registros com o termo buscado." )
    public List<KOHA> listKohaString( @PathVariable( value = "string" ) String string )
    {
