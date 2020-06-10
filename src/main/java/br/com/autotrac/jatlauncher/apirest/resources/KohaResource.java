@@ -42,9 +42,10 @@ public class KohaResource
       List<KOHA> listKohaBackEnd = kohaRepository.findAll();
       for ( KOHA koha : listKohaBackEnd )
       {
-         if ( koha.getTitle().contains( string ) ||
-            koha.getAuthor().contains( string ) ||
-            koha.getLiterary_format().contains( string ) )
+         String title = koha.getTitle().toLowerCase();
+         String author = koha.getAuthor().toLowerCase();
+         String format = koha.getLiterary_format().toLowerCase();
+         if ( title.contains( string ) || author.contains( string ) || format.contains( string ) )
             listKoha.add( koha );
       }
 
