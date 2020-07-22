@@ -34,6 +34,9 @@ public class DEVICE implements Serializable
    @Column( nullable = false )
    private String deviceTxtActivationKey;
 
+   @Column( nullable = false )
+   private long deviceNumUpdateFlag;
+
    public long getDeviceNumId()
    {
       return deviceNumId;
@@ -82,5 +85,15 @@ public class DEVICE implements Serializable
    public void setDeviceTxtActivationKey( String deviceTxtActivationKey )
    {
       this.deviceTxtActivationKey = deviceTxtActivationKey;
+   }
+
+   public long getDeviceNumUpdateFlag()
+   {
+      return deviceNumUpdateFlag;
+   }
+
+   public void setDeviceNumUpdateFlag( long deviceNumUpdateFlag )
+   {
+      this.deviceNumUpdateFlag = deviceNumUpdateFlag;
    }
 }
