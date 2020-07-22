@@ -52,24 +52,6 @@ public class KohaResource
       return listKoha;
    }
 
-   @GetMapping( "/koha_find/{string}" )
-   @ApiOperation( value = "Retorna a lista de todos os registros com o termo buscado." )
-   public List<KOHA> listKohaString( @PathVariable( value = "string" ) String string )
-   {
-      List<KOHA> listKoha = new ArrayList<KOHA>();
-      List<KOHA> listKohaBackEnd = kohaRepository.findAll();
-      for ( KOHA koha : listKohaBackEnd )
-      {
-         String title = koha.getTitle().toLowerCase();
-         String author = koha.getAuthor().toLowerCase();
-         String format = koha.getLiterary_format().toLowerCase();
-         if ( title.contains( string ) || author.contains( string ) || format.contains( string ) )
-            listKoha.add( koha );
-      }
-
-      return listKoha;
-   }
-
    @GetMapping( "/koha/{id}" )
    @ApiOperation( value = "Retorna um único registro de acordo com o Id informado." )
    public KOHA listKohaId( @PathVariable( value = "id" ) long id )
