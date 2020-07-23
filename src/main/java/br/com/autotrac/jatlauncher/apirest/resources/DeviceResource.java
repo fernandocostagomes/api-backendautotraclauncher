@@ -32,12 +32,6 @@ public class DeviceResource
       return deviceRepository.findAll();
    }
 
-   @GetMapping( "/device/{id}" )
-   public DEVICE listDeviceOnly( @PathVariable( value = "id" ) long id )
-   {
-      return deviceRepository.findById( id );
-   }
-
    @GetMapping( "/device/{serial}" )
    public DEVICE getDeviceOnly( @PathVariable( value = "serial" ) String serial )
    {
