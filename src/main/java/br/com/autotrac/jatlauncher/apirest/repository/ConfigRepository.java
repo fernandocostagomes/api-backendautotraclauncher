@@ -6,7 +6,5 @@ import br.com.autotrac.jatlauncher.apirest.models.CONFIG;
 
 public interface ConfigRepository extends JpaRepository<CONFIG, Long>
 {
-
    CONFIG findById( long id );
-
 }

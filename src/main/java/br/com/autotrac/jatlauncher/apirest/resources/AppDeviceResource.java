@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,6 +80,13 @@ public class AppDeviceResource
       app_device.setDeviceNumId( device.getDeviceNumId() );
 
       return appDeviceRepository.save( app_device );
+   }
+
+   @GetMapping( "/appdevice/{numId}" )
+   @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para um dispositivo." )
+   public List<APP_DEVICE> listAppDeviceOnly( @PathVariable( value = "numId" ) long numId )
+   {
+      return appDeviceRepository.findAllByNumId( numId );
    }
 
    @DeleteMapping( "/appdevice" )
