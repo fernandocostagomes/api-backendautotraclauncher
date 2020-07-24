@@ -49,16 +49,17 @@ public class AppDeviceResource
       for ( String string : listStringAllPkg )
       {
          APP_DEVICE app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( string );
-         if ( app_DEVICE.getAppDeviceTxtPackage().equals( string ) )
-         {
-            list.add( app_DEVICE );
-         }
-         else
+         if ( app_DEVICE == null )
          {
             APP_DEVICE app_DEVICE2 = new APP_DEVICE();
             app_DEVICE2.setAppDeviceTxtPackage( string );
             list.add( app_DEVICE2 );
          }
+         else
+            if ( app_DEVICE.getAppDeviceTxtPackage().equals( string ) )
+            {
+               list.add( app_DEVICE );
+            }
       }
       return list;
    }
