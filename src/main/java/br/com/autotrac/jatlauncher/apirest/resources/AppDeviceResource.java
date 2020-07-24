@@ -40,7 +40,7 @@ public class AppDeviceResource
    @Autowired
    DeviceRepository deviceRepository;
 
-   @GetMapping( "/appdevice/{listPkg}" )
+   @GetMapping( "/appdevice/listapppkg/{listPkg}" )
    @ApiOperation( value = "Retorna a lista dos apps solicitados e informa." )
    public List<APP_DEVICE> listAppDeviceAll( @PathVariable( value = "listPkg" ) List<String> listStringAllPkg )
    {
@@ -60,7 +60,7 @@ public class AppDeviceResource
             list.add( app_DEVICE2 );
          }
       }
-      return appDeviceRepository.findAll();
+      return list;
    }
 
    @GetMapping( "/appdevice" )
