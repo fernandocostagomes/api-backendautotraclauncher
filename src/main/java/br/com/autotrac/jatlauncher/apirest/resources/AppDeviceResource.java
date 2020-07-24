@@ -86,7 +86,7 @@ public class AppDeviceResource
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para um dispositivo." )
    public List<APP_DEVICE> listAppDeviceOnly( @PathVariable( value = "numId" ) long numId )
    {
-      return appDeviceRepository.findAllByNumId( numId );
+      return appDeviceRepository.findAllBydeviceNumId( numId );
    }
 
    @DeleteMapping( "/appdevice" )

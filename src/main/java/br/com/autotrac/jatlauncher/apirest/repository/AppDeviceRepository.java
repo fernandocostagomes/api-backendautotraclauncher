@@ -10,5 +10,5 @@ public interface AppDeviceRepository extends JpaRepository<APP_DEVICE, Long>
 {
    APP_DEVICE findById( long id );
 
-   List<APP_DEVICE> findAllByNumId( long numId );
+   List<APP_DEVICE> findAllBydeviceNumId( long deviceNumId );
 }
