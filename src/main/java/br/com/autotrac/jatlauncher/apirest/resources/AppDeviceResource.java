@@ -1,5 +1,6 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,29 @@ public class AppDeviceResource
 
    @Autowired
    DeviceRepository deviceRepository;
+
+   @GetMapping( "/appdevice/{listPkg}" )
+   @ApiOperation( value = "Retorna a lista dos apps solicitados e informa." )
+   public List<APP_DEVICE> listAppDeviceAll( @PathVariable( value = "listPkg" ) List<String> listStringAllPkg )
+   {
+      List<APP_DEVICE> list = new ArrayList<APP_DEVICE>();
+
+      for ( String string : listStringAllPkg )
+      {
+         APP_DEVICE app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( string );
+         if ( app_DEVICE.getAppDeviceTxtPackage().equals( string ) )
+         {
+            list.add( app_DEVICE );
+         }
+         else
+         {
+            APP_DEVICE app_DEVICE2 = new APP_DEVICE();
+            app_DEVICE2.setAppDeviceTxtPackage( string );
+            list.add( app_DEVICE2 );
+         }
+      }
+      return appDeviceRepository.findAll();
+   }
 
    @GetMapping( "/appdevice" )
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para todos os dispositivos." )
