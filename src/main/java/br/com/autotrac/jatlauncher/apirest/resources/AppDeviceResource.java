@@ -114,11 +114,18 @@ public class AppDeviceResource
       return appDeviceRepository.findAllBydeviceNumId( numId );
    }
 
-   @DeleteMapping( "/appdevice" )
+   @DeleteMapping( "/appdevice/deleteApp/" )
    @ApiOperation( value = "Deleta um App de um dispositivo de acordo com o objeto informado." )
    public void deleteAppDevice( @RequestBody APP_DEVICE app_device )
    {
       appDeviceRepository.delete( app_device );
+   }
+
+   @DeleteMapping( "/appdevice/deleteId/{appDeviceNumId}" )
+   @ApiOperation( value = "Deleta um App de um dispositivo de acordo com o appDeviceNumId do appDevice informado." )
+   public void deleteAppDeviceByNumId( @PathVariable( value = "appDeviceNumId" ) long appDeviceNumId )
+   {
+      appDeviceRepository.deleteByAppDeviceNumId( appDeviceNumId );
    }
 
    @PutMapping( "/appdevice" )
