@@ -94,17 +94,28 @@ public class AppDeviceResource
          appbackend = appBackendRepository.save( appbackend );
       }
       // Existe
-      // Insere o App na tabela de apps por dispositivo.
-      APP_DEVICE app_device = new APP_DEVICE();
-      app_device.setAppNumId( appbackend.getAppNumId() );
-      app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
-      app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
-      app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
-      app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
-      app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
-      app_device.setDeviceNumId( device.getDeviceNumId() );
+      //Verificar se já não existe na tabela de app por dispositivo.
+      //Pesquisar o packate nos apps por dispositivo.
+      String pkg =  appDeviceRepository.findbapp.getAppTxtPackage();
+      if(pkgapp.getAppTxtPackage().)
+      {
+         
+      }
+      else
+      {
+         // Insere o App na tabela de apps por dispositivo.
+         APP_DEVICE app_device = new APP_DEVICE();
+         app_device.setAppNumId( appbackend.getAppNumId() );
+         app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
+         app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
+         app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
+         app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
+         app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
+         app_device.setDeviceNumId( device.getDeviceNumId() );
+         return appDeviceRepository.save( app_device );
+      }
 
-      return appDeviceRepository.save( app_device );
+      
    }
 
    @GetMapping( "/appdevice/{numId}" )
@@ -121,17 +132,17 @@ public class AppDeviceResource
       appDeviceRepository.delete( app_device );
    }
 
-   @GetMapping( "/appdevice/deleteId/{appDeviceNumId}" )
-   @ApiOperation( value = "Deleta um App de um dispositivo de acordo com o appDeviceNumId do appDevice informado." )
-   public void deleteAppDeviceByNumId( @PathVariable( value = "appDeviceNumId" ) long appDeviceNumId )
-   {
-      appDeviceRepository.deleteByAppDeviceNumId( appDeviceNumId );
-   }
-
    @PutMapping( "/appdevice" )
    @ApiOperation( value = "Faz uma alteração em um App de um dispositivo de acordo com o objeto informado." )
    public APP_DEVICE updateAppDevice( @RequestBody APP_DEVICE app_device )
    {
       return appDeviceRepository.save( app_device );
+   }
+
+   @GetMapping( "/appdevice/pkg/{pkg_name}" )
+   @ApiOperation( value = "Retorna um único App de acordo com o pkg informado." )
+   public APP_DEVICE appOnlyPkg( String pkg )
+   {
+      return appDeviceRepository.findByAppDeviceTxtPackage( pkg );
    }
 }
