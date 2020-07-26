@@ -121,7 +121,7 @@ public class AppDeviceResource
       appDeviceRepository.delete( app_device );
    }
 
-   @DeleteMapping( "/appdevice/deleteId/{appDeviceNumId}" )
+   @GetMapping( "/appdevice/deleteId/{appDeviceNumId}" )
    @ApiOperation( value = "Deleta um App de um dispositivo de acordo com o appDeviceNumId do appDevice informado." )
    public void deleteAppDeviceByNumId( @PathVariable( value = "appDeviceNumId" ) long appDeviceNumId )
    {
