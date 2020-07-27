@@ -57,11 +57,11 @@ public class AppBackendResource
       return appBackendRepository.findByAppNumId( id );
    }
 
-   @GetMapping( "/appserver_pkg/{pacote}" )
+   @GetMapping( "/appserver_pkg/{pkg_name}" )
    @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
-   public APP_BACKEND listAppOnlyPackage( String pacote )
+   public APP_BACKEND AppOnlyPackage( String pkg_name )
    {
-      return appBackendRepository.findByAppTxtPackage( pacote );
+      return appBackendRepository.findByAppTxtPackage( pkg_name );
    }
 
    @GetMapping( "/appserver_name/{name}" )

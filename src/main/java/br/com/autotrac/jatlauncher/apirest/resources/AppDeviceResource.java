@@ -75,14 +75,18 @@ public class AppDeviceResource
    @ApiOperation( value = "Grava um App para um dispositivo." )
    public APP_DEVICE insertAppDevice( @RequestBody APP app )
    {
+      // Serial do device que esta envolvido na insercao do app.
       DEVICE device = new DEVICE();
       device = deviceRepository.findByDeviceTxtSerial( app.getDeviceTxtSerial() );
 
+      // Nome do app a ser inserido.
+      String appReceived = app.getAppTxtPackage();
+
+      // Pesquisando o app na tabela generica de apps.
       APP_BACKEND appbackend = new APP_BACKEND();
-      appbackend = appBackendRepository.findByAppTxtPackage( app.getAppTxtPackage() );
-      // Verifica se ja tem o app cadastrado na tabela de apps generico.
-      // Não existe.
-      // if ( !app.getAppTxtPackage().equals( appbackend.getAppTxtPackage() ) || appbackend == null )
+      appbackend = appBackendRepository.findByAppTxtPackage( appReceived );
+
+      // Não existe na tabela generica de apps, então insere primeiro na tabela generica e resgata o id.
       if ( appbackend == null )
       {
          // Insere o App na tabela geral de Apps e resgata o id gerado para o mesmo.
@@ -90,21 +94,15 @@ public class AppDeviceResource
          appbackend.setAppNumId( 0 );
          appbackend.setAppTxtPackage( app.getAppTxtPackage() );
          appbackend.setAppTxtLabel( app.getAppTxtLabel() );
-
          appbackend = appBackendRepository.save( appbackend );
       }
-      // Existe
-      //Verificar se já não existe na tabela de app por dispositivo.
-      //Pesquisar o packate nos apps por dispositivo.
-      String pkg =  appDeviceRepository.findbapp.getAppTxtPackage();
-      if(pkgapp.getAppTxtPackage().)
-      {
-         
-      }
-      else
+
+      // Existe na tabela generica de apps.
+      // Verificar se já não existe na tabela de app por dispositivo.
+      APP_DEVICE app_device = new APP_DEVICE();
+      if ( appOnlyPackage( app.getAppTxtPackage() ).equals( "" ) || appOnlyPackage( app.getAppTxtPackage() ) == null )
       {
          // Insere o App na tabela de apps por dispositivo.
-         APP_DEVICE app_device = new APP_DEVICE();
          app_device.setAppNumId( appbackend.getAppNumId() );
          app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
          app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
@@ -112,10 +110,9 @@ public class AppDeviceResource
          app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
          app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
          app_device.setDeviceNumId( device.getDeviceNumId() );
-         return appDeviceRepository.save( app_device );
+         appDeviceRepository.save( app_device );
       }
-
-      
+      return appDeviceRepository.save( app_device );
    }
 
    @GetMapping( "/appdevice/{numId}" )
@@ -139,10 +136,10 @@ public class AppDeviceResource
       return appDeviceRepository.save( app_device );
    }
 
-   @GetMapping( "/appdevice/pkg/{pkg_name}" )
-   @ApiOperation( value = "Retorna um único App de acordo com o pkg informado." )
-   public APP_DEVICE appOnlyPkg( String pkg )
+   @GetMapping( "/appdevice_package/{pkg_name}" )
+   @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
+   public APP_DEVICE appOnlyPackage( String appDeviceTxtPackage )
    {
-      return appDeviceRepository.findByAppDeviceTxtPackage( pkg );
+      return appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
    }
 }
