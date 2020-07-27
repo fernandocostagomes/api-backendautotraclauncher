@@ -37,9 +37,9 @@ public class ParamDeviceResource
 
    @GetMapping( "/paramdevice/{id}" )
    @ApiOperation( value = "Retorna um único Parâmetro de um Device de acordo com o Id informado." )
-   public PARAM_DEVICE listParamDeviceOnly( @PathVariable( value = "id" ) long id )
+   public List<PARAM_DEVICE> listParamDeviceOnly( @PathVariable( value = "id" ) long device_num_id )
    {
-      return paramDeviceRepository.findById( id );
+      return paramDeviceRepository.findAllByDeviceNumId( device_num_id );
    }
 
    @PostMapping( "/paramdevice" )
