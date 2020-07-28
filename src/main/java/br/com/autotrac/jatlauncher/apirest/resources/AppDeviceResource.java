@@ -100,7 +100,7 @@ public class AppDeviceResource
       // Existe na tabela generica de apps.
       // Verificar se já não existe na tabela de app por dispositivo.
       APP_DEVICE app_device = new APP_DEVICE();
-      if ( appOnlyPackage( app.getAppTxtPackage() ).equals( "" ) || appOnlyPackage( app.getAppTxtPackage() ) == null )
+      if ( appOnlyPackage( app.getAppTxtPackage() ) == null || appOnlyPackage( app.getAppTxtPackage() ).equals( "" ) )
       {
          // Insere o App na tabela de apps por dispositivo.
          app_device.setAppNumId( appbackend.getAppNumId() );
@@ -145,6 +145,11 @@ public class AppDeviceResource
    @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
    public APP_DEVICE appOnlyPackage( String appDeviceTxtPackage )
    {
-      return appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
+      APP_DEVICE app_DEVICE = new APP_DEVICE();
+      app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
+      if ( app_DEVICE == null )
+         app_DEVICE.setAppDeviceTxtPackage( "" );
+
+      return app_DEVICE;
    }
 }
