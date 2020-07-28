@@ -100,7 +100,7 @@ public class AppDeviceResource
       // Existe na tabela generica de apps.
       // Verificar se já não existe na tabela de app por dispositivo.
       APP_DEVICE app_device = new APP_DEVICE();
-      if ( appOnlyPackage( app.getAppTxtPackage() ) == null || appOnlyPackage( app.getAppTxtPackage() ).equals( "" ) )
+      if ( !appOnlyPackage( app.getAppTxtPackage() ) )
       {
          // Insere o App na tabela de apps por dispositivo.
          app_device.setAppNumId( appbackend.getAppNumId() );
@@ -141,15 +141,33 @@ public class AppDeviceResource
       return appDeviceRepository.save( app_device );
    }
 
-   @GetMapping( "/appdevice_package/{pkg_name}" )
-   @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
-   public APP_DEVICE appOnlyPackage( String appDeviceTxtPackage )
-   {
-      APP_DEVICE app_DEVICE = new APP_DEVICE();
-      app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
-      if ( app_DEVICE == null )
-         app_DEVICE.setAppDeviceTxtPackage( "" );
+   // @GetMapping( "/appdevice_package/{pkg_name}" )
+   // @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
+   // public APP_DEVICE appOnlyPackage( String appDeviceTxtPackage )
+   // {
+   // APP_DEVICE app_DEVICE = new APP_DEVICE();
+   // app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
+   // if ( app_DEVICE == null )
+   // app_DEVICE.setAppDeviceTxtPackage( "" );
+   //
+   // return app_DEVICE;
+   // }
 
-      return app_DEVICE;
+   public boolean appOnlyPackage( String appDeviceTxtPackage )
+   {
+      boolean result = false;
+      APP_DEVICE app_DEVICE = new APP_DEVICE();
+      try
+      {
+         app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
+         if ( app_DEVICE.getAppDeviceTxtPackage().equals( appDeviceTxtPackage ) )
+            result = true;
+      }
+      catch ( Exception p_e )
+      {
+         p_e.printStackTrace();
+      }
+
+      return result;
    }
 }
