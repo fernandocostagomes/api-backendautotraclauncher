@@ -141,18 +141,6 @@ public class AppDeviceResource
       return appDeviceRepository.save( app_device );
    }
 
-   // @GetMapping( "/appdevice_package/{pkg_name}" )
-   // @ApiOperation( value = "Retorna um único App de acordo com o nome do pacote informado." )
-   // public APP_DEVICE appOnlyPackage( String appDeviceTxtPackage )
-   // {
-   // APP_DEVICE app_DEVICE = new APP_DEVICE();
-   // app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
-   // if ( app_DEVICE == null )
-   // app_DEVICE.setAppDeviceTxtPackage( "" );
-   //
-   // return app_DEVICE;
-   // }
-
    public boolean appOnlyPackage( String appDeviceTxtPackage )
    {
       boolean result = false;

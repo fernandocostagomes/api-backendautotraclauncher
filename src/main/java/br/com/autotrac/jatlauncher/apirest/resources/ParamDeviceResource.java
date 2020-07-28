@@ -79,7 +79,7 @@ public class ParamDeviceResource
 
       // Verificar se já não existe na tabela de param por dispositivo.
       PARAM_DEVICE param_device1 = new PARAM_DEVICE();
-      if ( paramOnlyCod( param_device.getParamNumCod() ) == null )
+      if ( !paramOnlyCod( param_device.getParamNumCod() ) )
       {
          // Insere o App na tabela de apps por dispositivo.
          param_device1.setParamNumCod( param.getParamNumCod() );
@@ -109,10 +109,21 @@ public class ParamDeviceResource
       return paramDeviceRepository.save( param_device );
    }
 
-   @GetMapping( "/paramdevice/{param_cod}" )
-   @ApiOperation( value = "Retorna um único Param de acordo com o numero do codigo informado." )
-   public PARAM_DEVICE paramOnlyCod( long paramDeviceCod )
+   public boolean paramOnlyCod( long paramDeviceCod )
    {
-      return paramDeviceRepository.findByParamNumCod( paramDeviceCod );
+      boolean result = false;
+      PARAM_DEVICE param_DEVICE = new PARAM_DEVICE();
+      try
+      {
+         param_DEVICE = paramDeviceRepository.findByParamNumCod( paramDeviceCod );
+         if ( param_DEVICE.getParamNumCod() == param_DEVICE.getParamNumCod() )
+            result = true;
+      }
+      catch ( Exception p_e )
+      {
+         p_e.printStackTrace();
+      }
+
+      return result;
    }
 }
