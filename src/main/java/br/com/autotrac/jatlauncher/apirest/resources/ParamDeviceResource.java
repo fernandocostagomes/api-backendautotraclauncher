@@ -13,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.PARAM;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.ParamDeviceRepository;
+import br.com.autotrac.jatlauncher.apirest.repository.ParamRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -24,9 +28,14 @@ import io.swagger.annotations.ApiOperation;
 @CrossOrigin( origins = "*" )
 public class ParamDeviceResource
 {
-
    @Autowired
    ParamDeviceRepository paramDeviceRepository;
+
+   @Autowired
+   ParamRepository paramRepository;
+
+   @Autowired
+   DeviceRepository deviceRepository;
 
    @GetMapping( "/paramdevice" )
    @ApiOperation( value = "Retorna a lista de todos os Parametros de todos os Devices." )
@@ -43,10 +52,47 @@ public class ParamDeviceResource
    }
 
    @PostMapping( "/paramdevice" )
-   @ApiOperation( value = "Grava um Parâmetro de um Device." )
+   @ApiOperation( value = "Grava um Param para um dispositivo." )
    public PARAM_DEVICE insertParamDevice( @RequestBody PARAM_DEVICE param_device )
    {
-      return paramDeviceRepository.save( param_device );
+      // Serial do device que esta envolvido na insercao do app.
+      DEVICE device = new DEVICE();
+      device = deviceRepository.findById( param_device.getDeviceNumId() );
+
+      // Numero do parametro a ser inserido.
+      long appReceived = param_device.getDeviceNumId();
+
+      // Pesquisando o parametro na tabela generica de parametros.
+      PARAM param = new PARAM();
+      param = paramRepository.findById( appReceived );
+
+      // Não existe na tabela generica de parametros, então insere primeiro na tabela generica e resgata o id.
+      if ( param == null )
+      {
+         // Insere o Param na tabela geral de Param e resgata o id gerado para o mesmo.
+         param = new PARAM();
+         param.setParamNumId( 0 );
+         param.setParamNumCod( param_device.getParamDeviceNumId() );
+         param.setParamNumType( 1 );
+         param = paramRepository.save( param );
+      }
+
+      // Verificar se já não existe na tabela de param por dispositivo.
+      PARAM_DEVICE param_device1 = new PARAM_DEVICE();
+      if ( paramOnlyCod( param_device.getParamNumCod() ) == null )
+      {
+         // Insere o App na tabela de apps por dispositivo.
+         param_device1.setParamNumCod( param.getParamNumCod() );
+         param_device1.setParamDeviceValue( param_device.getParamDeviceValue() );
+         param_device1.setParamDeviceOldValue( param_device.getParamDeviceOldValue() );
+         param_device1 = paramDeviceRepository.save( param_device1 );
+      }
+      else
+      {
+         param_device1 = paramDeviceRepository.findById( param_device.getParamDeviceNumId() );
+
+      }
+      return param_device1;
    }
 
    @DeleteMapping( "/paramdevice" )
@@ -61,5 +107,12 @@ public class ParamDeviceResource
    public PARAM_DEVICE updateParamDevice( @RequestBody PARAM_DEVICE param_device )
    {
       return paramDeviceRepository.save( param_device );
+   }
+
+   @GetMapping( "/paramdevice/{param_cod}" )
+   @ApiOperation( value = "Retorna um único Param de acordo com o numero do codigo informado." )
+   public PARAM_DEVICE paramOnlyCod( long paramDeviceCod )
+   {
+      return paramDeviceRepository.findByParamNumCod( paramDeviceCod );
    }
 }

@@ -25,6 +25,9 @@ public class PARAM_DEVICE implements Serializable
    private long paramDeviceNumId;
 
    @Column( nullable = false )
+   private long paramNumCod;
+
+   @Column( nullable = false )
    private String paramDeviceValue;
 
    @Column
@@ -32,6 +35,16 @@ public class PARAM_DEVICE implements Serializable
 
    @Column( nullable = false )
    private long deviceNumId;
+
+   public long getParamNumCod()
+   {
+      return paramNumCod;
+   }
+
+   public void setParamNumCod( long paramNumCod )
+   {
+      this.paramNumCod = paramNumCod;
+   }
 
    public long getParamDeviceNumId()
    {

@@ -110,9 +110,14 @@ public class AppDeviceResource
          app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
          app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
          app_device.setDeviceNumId( device.getDeviceNumId() );
-         appDeviceRepository.save( app_device );
+         app_device = appDeviceRepository.save( app_device );
       }
-      return appDeviceRepository.save( app_device );
+      else
+      {
+         // Já existe, retorna o app convertido para app device.
+         app_device = appDeviceRepository.findByAppDeviceTxtPackage( app.getAppTxtPackage() );
+      }
+      return app_device;
    }
 
    @GetMapping( "/appdevice/{numId}" )
