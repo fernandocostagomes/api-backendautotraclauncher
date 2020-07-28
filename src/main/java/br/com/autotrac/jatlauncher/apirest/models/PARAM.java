@@ -1,43 +1,40 @@
 package br.com.autotrac.jatlauncher.apirest.models;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-
-@Entity
-@Embeddable
-@Table( name = "param" )
-public class PARAM implements Serializable
+public class PARAM
 {
-   private static final long serialVersionUID = 1L;
-
-   @Id
-   @Column
-   @PrimaryKeyJoinColumn
-   @GeneratedValue( strategy = GenerationType.AUTO )
-   private long paramNumId;
-
-   @Column( nullable = false )
+   private long deviceNumId;
+   private String paramDeviceValue;
+   private String paramDeviceOldValue;
    private long paramNumCod;
 
-   @Column( nullable = false )
-   private long paramNumType;
-
-   public long getParamNumId()
+   public long getDeviceNumId()
    {
-      return paramNumId;
+      return deviceNumId;
    }
 
-   public void setParamNumId( long paramNumId )
+   public void setDeviceNumId( long deviceNumId )
    {
-      this.paramNumId = paramNumId;
+      this.deviceNumId = deviceNumId;
+   }
+
+   public String getParamDeviceValue()
+   {
+      return paramDeviceValue;
+   }
+
+   public void setParamDeviceValue( String paramDeviceValue )
+   {
+      this.paramDeviceValue = paramDeviceValue;
+   }
+
+   public String getParamDeviceOldValue()
+   {
+      return paramDeviceOldValue;
+   }
+
+   public void setParamDeviceOldValue( String paramDeviceOldValue )
+   {
+      this.paramDeviceOldValue = paramDeviceOldValue;
    }
 
    public long getParamNumCod()
@@ -48,15 +45,5 @@ public class PARAM implements Serializable
    public void setParamNumCod( long paramNumCod )
    {
       this.paramNumCod = paramNumCod;
-   }
-
-   public long getParamNumType()
-   {
-      return paramNumType;
-   }
-
-   public void setParamNumType( long paramNumType )
-   {
-      this.paramNumType = paramNumType;
    }
 }

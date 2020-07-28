@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM;
+import br.com.autotrac.jatlauncher.apirest.models.PARAM_BACKEND;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
+import br.com.autotrac.jatlauncher.apirest.repository.ParamBackendRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.ParamDeviceRepository;
-import br.com.autotrac.jatlauncher.apirest.repository.ParamRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -32,7 +33,7 @@ public class ParamDeviceResource
    ParamDeviceRepository paramDeviceRepository;
 
    @Autowired
-   ParamRepository paramRepository;
+   ParamBackendRepository paramBackendRepository;
 
    @Autowired
    DeviceRepository deviceRepository;
@@ -53,43 +54,48 @@ public class ParamDeviceResource
 
    @PostMapping( "/paramdevice" )
    @ApiOperation( value = "Grava um Param para um dispositivo." )
-   public PARAM_DEVICE insertParamDevice( @RequestBody PARAM_DEVICE param_device )
+   public PARAM_DEVICE insertParamDevice( @RequestBody PARAM parameter )
    {
-      // Serial do device que esta envolvido na insercao do app.
+      // Id do device que esta envolvido na insercao do app.
       DEVICE device = new DEVICE();
-      device = deviceRepository.findById( param_device.getDeviceNumId() );
+      device = deviceRepository.findById( parameter.getDeviceNumId() );
+      long idDevice = device.getDeviceNumId();
 
-      // Numero do parametro a ser inserido.
-      long appReceived = param_device.getDeviceNumId();
+      // Obtendo o codigo do parametro a ser inserido, pesquisando pelo codigo do param.
+      long receivedAppCod = parameter.getParamNumCod();
 
       // Pesquisando o parametro na tabela generica de parametros.
-      PARAM param = new PARAM();
-      param = paramRepository.findById( appReceived );
+      PARAM_BACKEND param_backend = new PARAM_BACKEND();
+      param_backend = paramBackendRepository.findByParamNumCod( receivedAppCod );
 
       // Não existe na tabela generica de parametros, então insere primeiro na tabela generica e resgata o id.
-      if ( param == null )
+      if ( param_backend == null )
       {
          // Insere o Param na tabela geral de Param e resgata o id gerado para o mesmo.
-         param = new PARAM();
-         param.setParamNumId( 0 );
-         param.setParamNumCod( param_device.getParamDeviceNumId() );
-         param.setParamNumType( 1 );
-         param = paramRepository.save( param );
+         param_backend = new PARAM_BACKEND();
+         param_backend.setParamNumId( 0 );
+         param_backend.setParamNumCod( parameter.getParamNumCod() );
+         param_backend.setParamNumType( 1 );
+         param_backend = paramBackendRepository.save( param_backend );
       }
+
+      // Resgata o id do app da tabela generica.
+      long idAppGen = paramBackendRepository.findByParamNumCod( parameter.getParamNumCod() ).getParamNumId();
 
       // Verificar se já não existe na tabela de param por dispositivo.
       PARAM_DEVICE param_device1 = new PARAM_DEVICE();
-      if ( !paramOnlyCod( param_device.getParamNumCod() ) )
+      if ( paramDeviceRepository.findByParamNumId( idAppGen ).getDeviceNumId() == 0 )
       {
          // Insere o App na tabela de apps por dispositivo.
-         param_device1.setParamNumCod( param.getParamNumCod() );
-         param_device1.setParamDeviceValue( param_device.getParamDeviceValue() );
-         param_device1.setParamDeviceOldValue( param_device.getParamDeviceOldValue() );
+         param_device1.setDeviceNumId( parameter.getDeviceNumId() );
+         param_device1.setParamDeviceValue( parameter.getParamDeviceValue() );
+         param_device1.setParamDeviceOldValue( parameter.getParamDeviceOldValue() );
+         param_device1.setParamNumId( idAppGen );
          param_device1 = paramDeviceRepository.save( param_device1 );
       }
       else
       {
-         param_device1 = paramDeviceRepository.findById( param_device.getParamDeviceNumId() );
+         param_device1 = paramDeviceRepository.findById( idAppGen );
 
       }
       return param_device1;
@@ -107,23 +113,5 @@ public class ParamDeviceResource
    public PARAM_DEVICE updateParamDevice( @RequestBody PARAM_DEVICE param_device )
    {
       return paramDeviceRepository.save( param_device );
-   }
-
-   public boolean paramOnlyCod( long paramDeviceCod )
-   {
-      boolean result = false;
-      PARAM_DEVICE param_DEVICE = new PARAM_DEVICE();
-      try
-      {
-         param_DEVICE = paramDeviceRepository.findByParamNumCod( paramDeviceCod );
-         if ( param_DEVICE.getParamNumCod() == param_DEVICE.getParamNumCod() )
-            result = true;
-      }
-      catch ( Exception p_e )
-      {
-         p_e.printStackTrace();
-      }
-
-      return result;
    }
 }
