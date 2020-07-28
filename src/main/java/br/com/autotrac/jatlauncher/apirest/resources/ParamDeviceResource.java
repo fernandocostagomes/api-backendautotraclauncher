@@ -1,5 +1,6 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,22 @@ public class ParamDeviceResource
 
    @GetMapping( "/paramdevice/{id}" )
    @ApiOperation( value = "Retorna um único Parâmetro de um Device de acordo com o Id informado." )
-   public List<PARAM_DEVICE> listParamDeviceOnly( @PathVariable( value = "id" ) long device_num_id )
+   public List<PARAM> listParamDeviceOnly( @PathVariable( value = "id" ) long device_num_id )
    {
-      return paramDeviceRepository.findAllByDeviceNumId( device_num_id );
+      List<PARAM_DEVICE> listParamDevice = new ArrayList<PARAM_DEVICE>();
+      listParamDevice = paramDeviceRepository.findAllByDeviceNumId( device_num_id );
+      List<PARAM> listParam = new ArrayList<PARAM>();
+      for ( PARAM_DEVICE item_param : listParamDevice )
+      {
+         PARAM param = new PARAM();
+         param.setDeviceNumId( item_param.getDeviceNumId() );
+         param.setParamDeviceValue( item_param.getParamDeviceValue() );
+         param.setParamDeviceOldValue( item_param.getParamDeviceOldValue() );
+         long codParam = paramBackendRepository.findById( item_param.getParamNumId() ).getParamNumCod();
+         param.setParamNumCod( codParam );
+         listParam.add( param );
+      }
+      return listParam;
    }
 
    @PostMapping( "/paramdevice" )
