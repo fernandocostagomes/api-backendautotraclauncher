@@ -57,12 +57,12 @@ public class DEVICE implements Serializable
       this.deviceTxtSerial = deviceTxtSerial;
    }
 
-   public String getClientNumId()
+   public long getClientNumId()
    {
       return clientNumId;
    }
 
-   public void setClientNumId( String clientNumId )
+   public void setClientNumId( long clientNumId )
    {
       this.clientNumId = clientNumId;
    }
