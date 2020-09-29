@@ -24,7 +24,7 @@ public class CLIENT implements Serializable
    private String clientTxtName;
 
    @Column( nullable = false )
-   private String permissionNumLevel;
+   private long clientNumStatus;
 
    public long getClientNumId()
    {
@@ -46,14 +46,13 @@ public class CLIENT implements Serializable
       this.clientTxtName = clientTxtName;
    }
 
-   public String getPermissionNumLevel()
+   public long getClientNumStatus()
    {
-      return permissionNumLevel;
+      return clientNumStatus;
    }
 
-   public void setPermissionNumLevel( String permissionNumLevel )
+   public void setClientNumStatus( long clientNumStatus )
    {
-      this.permissionNumLevel = permissionNumLevel;
+      this.clientNumStatus = clientNumStatus;
    }
-
 }
