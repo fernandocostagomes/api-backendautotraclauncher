@@ -26,7 +26,7 @@ public class DEVICE implements Serializable
    private String deviceTxtSerial;
 
    @Column( nullable = false )
-   private String clientNumId;
+   private long clientNumId;
 
    @Column( nullable = false )
    private long deviceNumStatus;
