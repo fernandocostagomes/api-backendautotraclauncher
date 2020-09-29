@@ -32,7 +32,7 @@ public class USERWEB implements Serializable
    private String userwebTxtEmail;
 
    @Column( nullable = false )
-   private long permissionNumLevel;
+   private long permissionNumId;
 
    @Column( nullable = false )
    private long clientNumId;
