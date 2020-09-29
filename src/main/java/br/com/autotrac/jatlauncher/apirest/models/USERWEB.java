@@ -77,14 +77,14 @@ public class USERWEB implements Serializable
       this.userwebTxtEmail = userwebTxtEmail;
    }
 
-   public long getPermissionNumLevel()
+   public long getPermissionNumId()
    {
-      return permissionNumLevel;
+      return permissionNumId;
    }
 
-   public void setPermissionNumLevel( long permissionNumLevel )
+   public void setPermissionNumId( long permissionNumId )
    {
-      this.permissionNumLevel = permissionNumLevel;
+      this.permissionNumId = permissionNumId;
    }
 
    public long getClientNumId()
