@@ -26,7 +26,7 @@ public class DEVICE implements Serializable
    private String deviceTxtSerial;
 
    @Column( nullable = false )
-   private String deviceTxtClient;
+   private String clientNumId;
 
    @Column( nullable = false )
    private long deviceNumStatus;
@@ -57,14 +57,14 @@ public class DEVICE implements Serializable
       this.deviceTxtSerial = deviceTxtSerial;
    }
 
-   public String getDeviceTxtClient()
+   public String getClientNumId()
    {
-      return deviceTxtClient;
+      return clientNumId;
    }
 
-   public void setDeviceTxtClient( String deviceTxtClient )
+   public void setClientNumId( String clientNumId )
    {
-      this.deviceTxtClient = deviceTxtClient;
+      this.clientNumId = clientNumId;
    }
 
    public long getDeviceNumStatus()

@@ -11,7 +11,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "app" )
+@Table( name = "app_backend" )
 public class APP_BACKEND implements Serializable
 {
    private static final long serialVersionUID = 1L;

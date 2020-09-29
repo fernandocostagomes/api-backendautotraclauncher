@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Embeddable
-@Table( name = "param" )
+@Table( name = "param_backend" )
 public class PARAM_BACKEND implements Serializable
 {
    private static final long serialVersionUID = 1L;
