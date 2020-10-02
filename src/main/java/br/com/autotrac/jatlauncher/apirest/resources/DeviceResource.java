@@ -33,7 +33,7 @@ public class DeviceResource
       return deviceRepository.findAll();
    }
 
-   @GetMapping( "/device/client/{id}" )
+   @GetMapping( "/device_cli/{id}" )
    @ApiOperation( value = "Retorna os dispositivos de um único client de acordo com o Id informado." )
    public List<DEVICE> listDeviceClient( @PathVariable( value = "id" ) long clientId )
    {
