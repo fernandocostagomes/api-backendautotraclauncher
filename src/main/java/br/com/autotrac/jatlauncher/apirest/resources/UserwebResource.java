@@ -61,4 +61,36 @@ public class UserwebResource
    {
       userwebRepository.delete( user );
    }
+
+   @PostMapping( "/user/requestUser" )
+   @ApiOperation( value = "Retorna um usuário de acordo com o objeto requisitado." )
+   public USERWEB userFromObject( @RequestBody USERWEB user )
+   {
+      USERWEB returnUser = new USERWEB();
+      try
+      {
+         String requestUser = user.getUserwebTxtName();
+         USERWEB userweb = userwebRepository.findByUserwebTxtName( requestUser );
+         if ( userweb != null )
+         {
+            if ( user.getUserwebTxtPassword().equals( userweb.getUserwebTxtPassword() ) )
+            {
+               returnUser = userweb;
+            }
+            else
+            {
+               returnUser = user;
+            }
+         }
+         else
+         {
+            returnUser = user;
+         }
+      }
+      catch ( Exception p_e )
+      {
+         p_e.printStackTrace();
+      }
+      return returnUser;
+   }
 }

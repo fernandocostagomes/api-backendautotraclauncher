@@ -7,4 +7,6 @@ import br.com.autotrac.jatlauncher.apirest.models.USERWEB;
 public interface UserwebRepository extends JpaRepository<USERWEB, Long>
 {
    USERWEB findByUserwebNumId( long p_id );
+
+   USERWEB findByUserwebTxtName( String p_userName );
 }
