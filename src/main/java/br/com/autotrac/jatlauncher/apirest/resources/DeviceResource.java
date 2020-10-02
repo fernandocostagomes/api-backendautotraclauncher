@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping( value = "/api/v1" )
@@ -32,8 +33,9 @@ public class DeviceResource
       return deviceRepository.findAll();
    }
 
-   @GetMapping( "/device/client/{clientId}" )
-   public List<DEVICE> listDeviceClient( @PathVariable( value = "clientId" ) long clientId )
+   @GetMapping( "/device/client/{id}" )
+   @ApiOperation( value = "Retorna os dispositivos de um único client de acordo com o Id informado." )
+   public List<DEVICE> listDeviceClient( @PathVariable( value = "id" ) long clientId )
    {
       return deviceRepository.findAllByClientNumId( clientId );
    }
