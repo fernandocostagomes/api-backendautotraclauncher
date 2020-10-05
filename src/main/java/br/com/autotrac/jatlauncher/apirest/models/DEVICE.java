@@ -22,6 +22,9 @@ public class DEVICE implements Serializable
    private long deviceNumId;
 
    @Column( nullable = false )
+   private String deviceTxtName;
+
+   @Column( nullable = false )
    @PrimaryKeyJoinColumn
    private String deviceTxtSerial;
 
@@ -45,6 +48,16 @@ public class DEVICE implements Serializable
    public void setDeviceNumId( long deviceNumId )
    {
       this.deviceNumId = deviceNumId;
+   }
+
+   public String getDeviceTxtName()
+   {
+      return deviceTxtName;
+   }
+
+   public void setDeviceTxtName( String deviceTxtName )
+   {
+      this.deviceTxtName = deviceTxtName;
    }
 
    public String getDeviceTxtSerial()
