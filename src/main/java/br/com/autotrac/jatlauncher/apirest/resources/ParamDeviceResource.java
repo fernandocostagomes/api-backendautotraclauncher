@@ -47,7 +47,7 @@ public class ParamDeviceResource
    }
 
    @GetMapping( "/paramdevice/{id}" )
-   @ApiOperation( value = "Retorna um único Parâmetro de um Device de acordo com o Id informado." )
+   @ApiOperation( value = "Retorna uma lista com todos os parâmetros de um Device de acordo com o Id informado." )
    public List<PARAM> listParamDeviceOnly( @PathVariable( value = "id" ) long device_num_id )
    {
       List<PARAM_DEVICE> listParamDevice = new ArrayList<PARAM_DEVICE>();

@@ -1,5 +1,6 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
 import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
+import br.com.autotrac.jatlauncher.apirest.repository.AppDeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
+import br.com.autotrac.jatlauncher.apirest.repository.ParamDeviceRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -26,6 +31,12 @@ public class DeviceResource
 {
    @Autowired
    DeviceRepository deviceRepository;
+
+   @Autowired
+   AppDeviceRepository appDeviceRepository;
+
+   @Autowired
+   ParamDeviceRepository paramDeviceRepository;
 
    @GetMapping( "/device" )
    public List<DEVICE> listDevice()
@@ -52,15 +63,26 @@ public class DeviceResource
       return deviceRepository.save( device );
    }
 
-   @DeleteMapping( "/device" )
-   public void deleteDevice( @RequestBody DEVICE device )
-   {
-      deviceRepository.delete( device );
-   }
-
    @DeleteMapping( "/device/{id}" )
    public void deleteDeviceOnlyId( @PathVariable( value = "id" ) long id )
    {
+      // Listando os apps que tem o idapp que vai deletado.
+      List<APP_DEVICE> listAppDevice = new ArrayList<>( appDeviceRepository.findAllBydeviceNumId( id ) );
+      // Apagando cada um.
+      for ( APP_DEVICE appDevice : listAppDevice )
+      {
+         appDeviceRepository.delete( appDevice );
+      }
+
+      // Listando os parametros.
+      List<PARAM_DEVICE> listParamDevice = new ArrayList<>( paramDeviceRepository.findAllByDeviceNumId( id ) );
+      // Apagando cada um.
+      for ( PARAM_DEVICE paramDevice : listParamDevice )
+      {
+         paramDeviceRepository.delete( paramDevice );
+      }
+
+      // Apagando o dispositivo
       deviceRepository.deleteById( id );
    }
 
