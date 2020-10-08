@@ -123,6 +123,13 @@ public class ParamDeviceResource
       paramDeviceRepository.delete( param_device );
    }
 
+   @DeleteMapping( "/paramdevicedevicenumid/{id}" )
+   @ApiOperation( value = "Deleta todos os parametros de um dispositivo informado." )
+   public void deleteParamDeviceNumId( @PathVariable( value = "id" ) long device_num_id )
+   {
+      paramDeviceRepository.deleteAllByDeviceNumId( device_num_id );
+   }
+
    @PutMapping( "/paramdevice" )
    @ApiOperation( value = "Faz uma alteração em um Parâmetro de um Device de acordo com o objeto informado." )
    public PARAM_DEVICE updateParamDevice( @RequestBody PARAM_DEVICE param_device )
