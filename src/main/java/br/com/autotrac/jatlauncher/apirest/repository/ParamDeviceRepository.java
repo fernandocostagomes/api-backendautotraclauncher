@@ -13,4 +13,6 @@ public interface ParamDeviceRepository extends JpaRepository<PARAM_DEVICE, Long>
    PARAM_DEVICE findByParamNumId( long id );
 
    List<PARAM_DEVICE> findAllByDeviceNumId( long device_num_id );
+
+   void deleteAllByDeviceNumId( long device_num_id );
 }
