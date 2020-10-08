@@ -1,5 +1,6 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
 import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
+import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.AppDeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.ParamDeviceRepository;
@@ -64,9 +67,19 @@ public class DeviceResource
    public void deleteDeviceOnlyId( @PathVariable( value = "id" ) long id )
    {
       // Apagando os apps.
-      appDeviceRepository.deleteAllByDeviceNumId( id );
-      // Apagando os parametros.
-      paramDeviceRepository.deleteAllByDeviceNumId( id );
+      List<APP_DEVICE> listAppDevice = new ArrayList<APP_DEVICE>();
+      listAppDevice = appDeviceRepository.findAllBydeviceNumId( id );
+      for ( APP_DEVICE app_DEVICE : listAppDevice )
+      {
+         appDeviceRepository.delete( app_DEVICE );
+      }
+
+      List<PARAM_DEVICE> listParamDevice = new ArrayList<PARAM_DEVICE>();
+      listParamDevice = paramDeviceRepository.findAllByDeviceNumId( id );
+      for ( PARAM_DEVICE param_DEVICE : listParamDevice )
+      {
+         paramDeviceRepository.delete( param_DEVICE );
+      }
       // Apagando o dispositivo
       deviceRepository.deleteById( id );
    }
