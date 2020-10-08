@@ -140,7 +140,7 @@ public class AppDeviceResource
    @ApiOperation( value = "Deleta todos os apps de um dispositivo de acordo com o id informado." )
    public void deleteAppDeviceNumid( @PathVariable( value = "id" ) long deviceNumid )
    {
-      appDeviceRepository.deleteAllByDeviceNumId( deviceNumid );
+      appDeviceRepository.deleteAll();
    }
 
    @PutMapping( "/appdevice" )
