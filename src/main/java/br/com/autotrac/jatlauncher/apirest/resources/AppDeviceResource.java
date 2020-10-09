@@ -100,25 +100,18 @@ public class AppDeviceResource
       // Existe na tabela generica de apps.
       // Verificar se já não existe na tabela de app por dispositivo.
       APP_DEVICE app_device = new APP_DEVICE();
-      app_device = appDeviceRepository.findByAppDeviceTxtPackage( app.getAppTxtPackage() );
-      if ( app_device == null )
-      {
-         // Insere o App na tabela de apps por dispositivo.
-         app_device = new APP_DEVICE();
-         app_device.setAppNumId( appbackend.getAppNumId() );
-         app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
-         app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
-         app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
-         app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
-         app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
-         app_device.setDeviceNumId( device.getDeviceNumId() );
-         app_device = appDeviceRepository.save( app_device );
-      }
-      else
-      {
-         // Já existe, retorna o app convertido para app device.
-         app_device = appDeviceRepository.findByAppDeviceTxtPackage( app.getAppTxtPackage() );
-      }
+
+      // Insere o App na tabela de apps por dispositivo.
+      app_device = new APP_DEVICE();
+      app_device.setAppNumId( appbackend.getAppNumId() );
+      app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
+      app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
+      app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
+      app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
+      app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
+      app_device.setDeviceNumId( device.getDeviceNumId() );
+      app_device = appDeviceRepository.save( app_device );
+
       return app_device;
    }
 

@@ -99,20 +99,15 @@ public class ParamDeviceResource
       // Verificar se já não existe na tabela de param por dispositivo.
       PARAM_DEVICE param_device1 = new PARAM_DEVICE();
       param_device1 = paramDeviceRepository.findByParamNumId( idAppGen );
-      if ( param_device1 == null )
-      {
-         // Insere o App na tabela de apps por dispositivo.
-         param_device1 = new PARAM_DEVICE();
-         param_device1.setDeviceNumId( parameter.getDeviceNumId() );
-         param_device1.setParamDeviceValue( parameter.getParamDeviceValue() );
-         param_device1.setParamDeviceOldValue( parameter.getParamDeviceOldValue() );
-         param_device1.setParamNumId( idAppGen );
-         param_device1 = paramDeviceRepository.save( param_device1 );
-      }
-      else
-      {
-         param_device1 = paramDeviceRepository.findById( idAppGen );
-      }
+
+      // Insere o App na tabela de apps por dispositivo.
+      param_device1 = new PARAM_DEVICE();
+      param_device1.setDeviceNumId( parameter.getDeviceNumId() );
+      param_device1.setParamDeviceValue( parameter.getParamDeviceValue() );
+      param_device1.setParamDeviceOldValue( parameter.getParamDeviceOldValue() );
+      param_device1.setParamNumId( idAppGen );
+      param_device1 = paramDeviceRepository.save( param_device1 );
+
       return param_device1;
    }
 
