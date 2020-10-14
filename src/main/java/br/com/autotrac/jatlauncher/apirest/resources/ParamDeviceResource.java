@@ -59,6 +59,7 @@ public class ParamDeviceResource
          param.setDeviceNumId( item_param.getDeviceNumId() );
          param.setParamDeviceValue( item_param.getParamDeviceValue() );
          param.setParamDeviceOldValue( item_param.getParamDeviceOldValue() );
+         param.setParamNumId( item_param.getParamNumId() );
          long codParam = paramBackendRepository.findById( item_param.getParamNumId() ).getParamNumCod();
          param.setParamNumCod( codParam );
          listParam.add( param );
