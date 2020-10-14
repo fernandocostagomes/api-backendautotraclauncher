@@ -7,6 +7,7 @@ public class PARAM
    private String paramDeviceOldValue;
    private long paramNumCod;
    private long paramNumId;
+   private long paramDeviceNumId;
 
    public long getDeviceNumId()
    {
@@ -57,4 +58,15 @@ public class PARAM
    {
       this.paramNumId = paramNumId;
    }
+
+   public long getParamDeviceNumId()
+   {
+      return paramDeviceNumId;
+   }
+
+   public void setParamDeviceNumId( long paramDeviceNumId )
+   {
+      this.paramDeviceNumId = paramDeviceNumId;
+   }
+
 }
