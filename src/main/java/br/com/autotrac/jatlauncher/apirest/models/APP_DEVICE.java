@@ -30,10 +30,6 @@ public class APP_DEVICE implements Serializable
    @Column( nullable = false )
    private long deviceNumId;
 
-   private String appDeviceTxtPackage;
-
-   private String appDeviceTxtLabel;
-
    @Column( nullable = false )
    private long appDeviceNumStatus;
 
@@ -61,26 +57,6 @@ public class APP_DEVICE implements Serializable
    public void setAppNumId( long appNumId )
    {
       this.appNumId = appNumId;
-   }
-
-   public String getAppDeviceTxtPackage()
-   {
-      return appDeviceTxtPackage;
-   }
-
-   public void setAppDeviceTxtPackage( String appDeviceTxtPackage )
-   {
-      this.appDeviceTxtPackage = appDeviceTxtPackage;
-   }
-
-   public String getAppDeviceTxtLabel()
-   {
-      return appDeviceTxtLabel;
-   }
-
-   public void setAppDeviceTxtLabel( String appDeviceTxtLabel )
-   {
-      this.appDeviceTxtLabel = appDeviceTxtLabel;
    }
 
    public long getDeviceNumId()

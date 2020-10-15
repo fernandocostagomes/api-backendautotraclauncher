@@ -1,23 +1,52 @@
 package br.com.autotrac.jatlauncher.apirest.models;
 
-import java.io.Serializable;
-
 /**
  * Classe que representa o objeto App.
  * 
  * @author fernando.gomes
  *
  */
-public class APP implements Serializable
+public class APP
 {
-   private static final long serialVersionUID = 1L;
 
+   private long deviceNumId;
+   private long appNumId;
+   private long appDeviceNumId;
    private String appTxtPackage;
    private String appTxtLabel;
    private long appNumStatus;
-   private long appTxtPermission;
+   private long appDeviceNumPermission;
    private String appTxtPassword;
-   private String deviceTxtSerial;
+
+   public long getDeviceNumId()
+   {
+      return deviceNumId;
+   }
+
+   public void setDeviceNumId( long deviceNumId )
+   {
+      this.deviceNumId = deviceNumId;
+   }
+
+   public long getAppNumId()
+   {
+      return appNumId;
+   }
+
+   public void setAppNumId( long appNumId )
+   {
+      this.appNumId = appNumId;
+   }
+
+   public long getAppDeviceNumId()
+   {
+      return appDeviceNumId;
+   }
+
+   public void setAppDeviceNumId( long appDeviceNumId )
+   {
+      this.appDeviceNumId = appDeviceNumId;
+   }
 
    public String getAppTxtPackage()
    {
@@ -49,14 +78,14 @@ public class APP implements Serializable
       this.appNumStatus = appNumStatus;
    }
 
-   public long getAppTxtPermission()
+   public long getAppNumPermission()
    {
-      return appTxtPermission;
+      return appDeviceNumPermission;
    }
 
-   public void setAppTxtPermission( long appTxtPermission )
+   public void setAppNumPermission( long appTxtPermission )
    {
-      this.appTxtPermission = appTxtPermission;
+      this.appDeviceNumPermission = appTxtPermission;
    }
 
    public String getAppTxtPassword()
@@ -67,15 +96,5 @@ public class APP implements Serializable
    public void setAppTxtPassword( String appTxtPassword )
    {
       this.appTxtPassword = appTxtPassword;
-   }
-
-   public String getDeviceTxtSerial()
-   {
-      return deviceTxtSerial;
-   }
-
-   public void setDeviceTxtSerial( String deviceTxtSerial )
-   {
-      this.deviceTxtSerial = deviceTxtSerial;
    }
 }

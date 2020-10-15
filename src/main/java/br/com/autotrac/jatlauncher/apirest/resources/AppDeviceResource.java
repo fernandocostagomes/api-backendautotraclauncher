@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.autotrac.jatlauncher.apirest.models.APP;
 import br.com.autotrac.jatlauncher.apirest.models.APP_BACKEND;
 import br.com.autotrac.jatlauncher.apirest.models.APP_DEVICE;
-import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.repository.AppBackendRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.AppDeviceRepository;
 import br.com.autotrac.jatlauncher.apirest.repository.DeviceRepository;
@@ -40,30 +39,6 @@ public class AppDeviceResource
    @Autowired
    DeviceRepository deviceRepository;
 
-   @GetMapping( "/appdevice/listapppkg/{listPkg}" )
-   @ApiOperation( value = "Retorna a lista dos apps solicitados e informa." )
-   public List<APP_DEVICE> listAppDeviceAll( @PathVariable( value = "listPkg" ) List<String> listStringAllPkg )
-   {
-      List<APP_DEVICE> list = new ArrayList<APP_DEVICE>();
-
-      for ( String string : listStringAllPkg )
-      {
-         APP_DEVICE app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( string );
-         if ( app_DEVICE == null )
-         {
-            APP_DEVICE app_DEVICE2 = new APP_DEVICE();
-            app_DEVICE2.setAppDeviceTxtPackage( string );
-            list.add( app_DEVICE2 );
-         }
-         else
-            if ( app_DEVICE.getAppDeviceTxtPackage().equals( string ) )
-            {
-               list.add( app_DEVICE );
-            }
-      }
-      return list;
-   }
-
    @GetMapping( "/appdevice" )
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para todos os dispositivos." )
    public List<APP_DEVICE> listAppDeviceAll()
@@ -75,10 +50,6 @@ public class AppDeviceResource
    @ApiOperation( value = "Grava um App para um dispositivo." )
    public APP_DEVICE insertAppDevice( @RequestBody APP app )
    {
-      // Serial do device que esta envolvido na insercao do app.
-      DEVICE device = new DEVICE();
-      device = deviceRepository.findByDeviceTxtSerial( app.getDeviceTxtSerial() );
-
       // Nome do app a ser inserido.
       String appReceived = app.getAppTxtPackage();
 
@@ -91,25 +62,21 @@ public class AppDeviceResource
       {
          // Insere o App na tabela geral de Apps e resgata o id gerado para o mesmo.
          appbackend = new APP_BACKEND();
-         appbackend.setAppNumId( 0 );
-         appbackend.setAppTxtPackage( app.getAppTxtPackage() );
          appbackend.setAppTxtLabel( app.getAppTxtLabel() );
+         appbackend.setAppTxtPackage( app.getAppTxtPackage() );
          appbackend = appBackendRepository.save( appbackend );
       }
 
-      // Existe na tabela generica de apps.
-      // Verificar se já não existe na tabela de app por dispositivo.
+      // Insere também na tabela por dispositivo.
       APP_DEVICE app_device = new APP_DEVICE();
 
       // Insere o App na tabela de apps por dispositivo.
       app_device = new APP_DEVICE();
       app_device.setAppNumId( appbackend.getAppNumId() );
-      app_device.setAppDeviceTxtLabel( app.getAppTxtLabel() );
-      app_device.setAppDeviceTxtPackage( app.getAppTxtPackage() );
       app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
-      app_device.setAppDeviceNumPermission( app.getAppTxtPermission() );
+      app_device.setAppDeviceNumPermission( app.getAppNumPermission() );
       app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
-      app_device.setDeviceNumId( device.getDeviceNumId() );
+      app_device.setDeviceNumId( app.getAppDeviceNumId() );
       app_device = appDeviceRepository.save( app_device );
 
       return app_device;
@@ -117,9 +84,33 @@ public class AppDeviceResource
 
    @GetMapping( "/appdevice/{numId}" )
    @ApiOperation( value = "Retorna a lista de todos os Apps cadastrados para um dispositivo." )
-   public List<APP_DEVICE> listAppDeviceOnly( @PathVariable( value = "numId" ) long numId )
+   public List<APP> listAppDeviceOnly( @PathVariable( value = "numId" ) long numId )
    {
-      return appDeviceRepository.findAllBydeviceNumId( numId );
+      List<APP> listApp = new ArrayList<APP>();
+
+      List<APP_DEVICE> listAppDevice = new ArrayList<APP_DEVICE>();
+
+      listAppDevice = appDeviceRepository.findAllBydeviceNumId( numId );
+
+      if ( listAppDevice.size() > 0 )
+      {
+         for ( APP_DEVICE appDevice : listAppDevice )
+         {
+            APP app = new APP();
+            app.setDeviceNumId( numId );
+            app.setAppNumId( appDevice.getAppNumId() );
+            app.setAppDeviceNumId( appDevice.getAppDeviceNumId() );
+            app.setAppNumPermission( appDevice.getAppDeviceNumPermission() );
+            app.setAppNumStatus( appDevice.getAppDeviceNumStatus() );
+            app.setAppTxtPassword( appDevice.getAppDeviceTxtPassword() );
+            APP_BACKEND appBackend = new APP_BACKEND();
+            appBackend = appBackendRepository.findByAppNumId( appDevice.getAppNumId() );
+            app.setAppTxtLabel( appBackend.getAppTxtLabel() );
+            app.setAppTxtPackage( appBackend.getAppTxtPackage() );
+            listApp.add( app );
+         }
+      }
+      return listApp;
    }
 
    @DeleteMapping( "/appdevice/deleteApp/" )
@@ -136,21 +127,4 @@ public class AppDeviceResource
       return appDeviceRepository.save( app_device );
    }
 
-   public boolean appOnlyPackage( String appDeviceTxtPackage )
-   {
-      boolean result = false;
-      APP_DEVICE app_DEVICE = new APP_DEVICE();
-      try
-      {
-         app_DEVICE = appDeviceRepository.findByAppDeviceTxtPackage( appDeviceTxtPackage );
-         if ( app_DEVICE.getAppDeviceTxtPackage().equals( appDeviceTxtPackage ) )
-            result = true;
-      }
-      catch ( Exception p_e )
-      {
-         p_e.printStackTrace();
-      }
-
-      return result;
-   }
 }

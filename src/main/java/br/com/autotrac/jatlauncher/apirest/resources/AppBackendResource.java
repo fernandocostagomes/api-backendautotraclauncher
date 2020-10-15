@@ -1,6 +1,5 @@
 package br.com.autotrac.jatlauncher.apirest.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,20 +35,6 @@ public class AppBackendResource
       return appBackendRepository.findAll();
    }
 
-   @GetMapping( "/appserver_find/{string}" )
-   @ApiOperation( value = "Retorna a lista de todos os Apps como o termo selecionado." )
-   public List<APP_BACKEND> listAppString( @PathVariable( value = "string" ) String string )
-   {
-      List<APP_BACKEND> listApp = new ArrayList<APP_BACKEND>();
-      List<APP_BACKEND> listAppBackEnd = appBackendRepository.findAll();
-      for ( APP_BACKEND appBackEnd : listAppBackEnd )
-      {
-         if ( appBackEnd.getAppTxtLabel().contains( string ) )
-            listApp.add( appBackEnd );
-      }
-      return listApp;
-   }
-
    @GetMapping( "/appserver/{id}" )
    @ApiOperation( value = "Retorna um único App de acordo com o Id informado." )
    public APP_BACKEND listAppOnlyId( @PathVariable( value = "id" ) long id )
@@ -62,13 +47,6 @@ public class AppBackendResource
    public APP_BACKEND AppOnlyPackage( String pkg_name )
    {
       return appBackendRepository.findByAppTxtPackage( pkg_name );
-   }
-
-   @GetMapping( "/appserver_name/{name}" )
-   @ApiOperation( value = "Retorna um único App de acordo com o label informado." )
-   public APP_BACKEND listAppOnlyLabel( String label )
-   {
-      return appBackendRepository.findByAppTxtLabel( label );
    }
 
    @PostMapping( "/appserver" )
