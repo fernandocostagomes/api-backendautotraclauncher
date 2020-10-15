@@ -2,12 +2,33 @@ package br.com.autotrac.jatlauncher.apirest.models;
 
 public class PARAM
 {
+   private long paramNumId;
    private long deviceNumId;
+   private long paramDeviceNumId;
    private String paramDeviceValue;
    private String paramDeviceOldValue;
    private long paramNumCod;
-   private long paramNumId;
-   private long paramDeviceNumId;
+   private long paramNumType;
+
+   public long getParamNumType()
+   {
+      return paramNumType;
+   }
+
+   public void setParamNumType( long paramNumType )
+   {
+      this.paramNumType = paramNumType;
+   }
+
+   public long getParamNumCod()
+   {
+      return paramNumCod;
+   }
+
+   public void setParamNumCod( long paramNumCod )
+   {
+      this.paramNumCod = paramNumCod;
+   }
 
    public long getDeviceNumId()
    {
@@ -37,16 +58,6 @@ public class PARAM
    public void setParamDeviceOldValue( String paramDeviceOldValue )
    {
       this.paramDeviceOldValue = paramDeviceOldValue;
-   }
-
-   public long getParamNumCod()
-   {
-      return paramNumCod;
-   }
-
-   public void setParamNumCod( long paramNumCod )
-   {
-      this.paramNumCod = paramNumCod;
    }
 
    public long getParamNumId()

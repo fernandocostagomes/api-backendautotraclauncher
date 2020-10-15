@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.autotrac.jatlauncher.apirest.models.DEVICE;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM_BACKEND;
 import br.com.autotrac.jatlauncher.apirest.models.PARAM_DEVICE;
@@ -50,19 +49,23 @@ public class ParamDeviceResource
    @ApiOperation( value = "Retorna uma lista com todos os parâmetros de um Device de acordo com o Id informado." )
    public List<PARAM> listParamDeviceOnly( @PathVariable( value = "id" ) long device_num_id )
    {
-      List<PARAM_DEVICE> listParamDevice = new ArrayList<PARAM_DEVICE>();
-      listParamDevice = paramDeviceRepository.findAllByDeviceNumId( device_num_id );
       List<PARAM> listParam = new ArrayList<PARAM>();
+      List<PARAM_DEVICE> listParamDevice = new ArrayList<PARAM_DEVICE>();
+
+      listParamDevice = paramDeviceRepository.findAllByDeviceNumId( device_num_id );
+
       for ( PARAM_DEVICE item_param : listParamDevice )
       {
          PARAM param = new PARAM();
          param.setDeviceNumId( item_param.getDeviceNumId() );
-         param.setParamDeviceValue( item_param.getParamDeviceValue() );
-         param.setParamDeviceOldValue( item_param.getParamDeviceOldValue() );
          param.setParamNumId( item_param.getParamNumId() );
          param.setParamDeviceNumId( item_param.getParamDeviceNumId() );
+         param.setParamDeviceValue( item_param.getParamDeviceValue() );
+         param.setParamDeviceOldValue( item_param.getParamDeviceOldValue() );
          long codParam = paramBackendRepository.findById( item_param.getParamNumId() ).getParamNumCod();
+         long typeParam = paramBackendRepository.findById( item_param.getParamNumId() ).getParamNumType();
          param.setParamNumCod( codParam );
+         param.setParamNumType( typeParam );
          listParam.add( param );
       }
       return listParam;
@@ -72,17 +75,12 @@ public class ParamDeviceResource
    @ApiOperation( value = "Grava um Param para um dispositivo." )
    public PARAM_DEVICE insertParamDevice( @RequestBody PARAM parameter )
    {
-      // Id do device que esta envolvido na insercao do app.
-      DEVICE device = new DEVICE();
-      device = deviceRepository.findById( parameter.getDeviceNumId() );
-      long idDevice = device.getDeviceNumId();
-
-      // Obtendo o codigo do parametro a ser inserido, pesquisando pelo codigo do param.
-      long receivedAppCod = parameter.getParamNumCod();
+      // Cod do parametro
+      long codParam = parameter.getParamNumCod();
 
       // Pesquisando o parametro na tabela generica de parametros.
       PARAM_BACKEND param_backend = new PARAM_BACKEND();
-      param_backend = paramBackendRepository.findByParamNumCod( receivedAppCod );
+      param_backend = paramBackendRepository.findByParamNumCod( codParam );
 
       // Não existe na tabela generica de parametros, então insere primeiro na tabela generica e resgata o id.
       if ( param_backend == null )
@@ -91,26 +89,19 @@ public class ParamDeviceResource
          param_backend = new PARAM_BACKEND();
          param_backend.setParamNumId( 0 );
          param_backend.setParamNumCod( parameter.getParamNumCod() );
-         param_backend.setParamNumType( 1 );
+         param_backend.setParamNumType( parameter.getParamNumType() );
          param_backend = paramBackendRepository.save( param_backend );
       }
 
-      // Resgata o id do app da tabela generica.
-      long idAppGen = paramBackendRepository.findByParamNumCod( parameter.getParamNumCod() ).getParamNumId();
-
-      // Verificar se já não existe na tabela de param por dispositivo.
-      PARAM_DEVICE param_device1 = new PARAM_DEVICE();
-      param_device1 = paramDeviceRepository.findByParamNumId( idAppGen );
-
       // Insere o App na tabela de apps por dispositivo.
-      param_device1 = new PARAM_DEVICE();
-      param_device1.setDeviceNumId( parameter.getDeviceNumId() );
-      param_device1.setParamDeviceValue( parameter.getParamDeviceValue() );
-      param_device1.setParamDeviceOldValue( parameter.getParamDeviceOldValue() );
-      param_device1.setParamNumId( idAppGen );
-      param_device1 = paramDeviceRepository.save( param_device1 );
+      PARAM_DEVICE param_device = new PARAM_DEVICE();
+      param_device.setDeviceNumId( parameter.getDeviceNumId() );
+      param_device.setParamDeviceValue( parameter.getParamDeviceValue() );
+      param_device.setParamDeviceOldValue( parameter.getParamDeviceOldValue() );
+      param_device.setParamNumId( param_backend.getParamNumId() );
+      param_device = paramDeviceRepository.save( param_device );
 
-      return param_device1;
+      return param_device;
    }
 
    @DeleteMapping( "/paramdevice" )

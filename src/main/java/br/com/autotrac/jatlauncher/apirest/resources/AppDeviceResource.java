@@ -71,7 +71,6 @@ public class AppDeviceResource
       APP_DEVICE app_device = new APP_DEVICE();
 
       // Insere o App na tabela de apps por dispositivo.
-      app_device = new APP_DEVICE();
       app_device.setAppNumId( appbackend.getAppNumId() );
       app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
       app_device.setAppDeviceNumPermission( app.getAppNumPermission() );

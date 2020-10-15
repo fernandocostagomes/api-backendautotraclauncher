@@ -3,7 +3,6 @@ package br.com.autotrac.jatlauncher.apirest.models;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,7 +11,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Embeddable
 @Table( name = "app_backend" )
 public class APP_BACKEND implements Serializable
 {
