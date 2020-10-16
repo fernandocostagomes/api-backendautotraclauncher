@@ -75,7 +75,7 @@ public class AppDeviceResource
       app_device.setAppDeviceNumStatus( app.getAppNumStatus() );
       app_device.setAppDeviceNumPermission( app.getAppNumPermission() );
       app_device.setAppDeviceTxtPassword( app.getAppTxtPassword() );
-      app_device.setDeviceNumId( app.getAppDeviceNumId() );
+      app_device.setDeviceNumId( app.getDeviceNumId() );
       app_device = appDeviceRepository.save( app_device );
 
       return app_device;
