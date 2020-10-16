@@ -89,4 +89,21 @@ public class DeviceResource
    {
       return deviceRepository.save( device );
    }
+
+   @PutMapping( "/deviceflag" )
+   public DEVICE updateDeviceFlag( @RequestBody DEVICE device )
+   {
+      DEVICE device1 = new DEVICE();
+      device1 = deviceRepository.findById( device.getDeviceNumId() );
+
+      DEVICE device2 = new DEVICE();
+      device2.setClientNumId( device1.getClientNumId() );
+      device2.setDeviceNumId( device1.getDeviceNumId() );
+      device2.setDeviceNumStatus( device1.getDeviceNumStatus() );
+      device2.setDeviceNumUpdateFlag( device.getDeviceNumUpdateFlag() );
+      device2.setDeviceTxtActivationKey( device1.getDeviceTxtActivationKey() );
+      device2.setDeviceTxtName( device1.getDeviceTxtName() );
+      device2.setDeviceTxtSerial( device1.getDeviceTxtSerial() );
+      return deviceRepository.save( device2 );
+   }
 }
