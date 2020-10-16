@@ -119,6 +119,12 @@ public class AppDeviceResource
       appDeviceRepository.delete( app_device );
    }
 
+   @DeleteMapping( "/appdevice/{id}" )
+   public void deleteAppDeviceOnlyId( @PathVariable( value = "id" ) long id )
+   {
+      appDeviceRepository.deleteByAppDeviceNumId( id );
+   }
+
    @PutMapping( "/appdevice" )
    @ApiOperation( value = "Faz uma alteração em um App de um dispositivo de acordo com o objeto informado." )
    public APP_DEVICE updateAppDevice( @RequestBody APP_DEVICE app_device )

@@ -13,4 +13,6 @@ public interface AppDeviceRepository extends JpaRepository<APP_DEVICE, Long>
    List<APP_DEVICE> findAllBydeviceNumId( long deviceNumId );
 
    void deleteAllByDeviceNumId( long deviceNumId );
+
+   void deleteByAppDeviceNumId( long appDeviceNumId );
 }
