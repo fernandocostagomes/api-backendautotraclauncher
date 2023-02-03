@@ -47,6 +47,7 @@ public class APP
    {
       this.appDeviceNumId = appDeviceNumId;
    }
+   
 
    public String getAppTxtPackage()
    {
